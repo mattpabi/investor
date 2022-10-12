@@ -150,20 +150,28 @@ def assign_player_investment(investment_choice):
             "Meta Platforms, Inc. (META)" : round(float(177.49),2)
         }
         
-        investment_choice_profile = "Meta Platforms, Inc., engages in the development of social media applications. It builds technology that helps people connect, find communities, and grow businesses."
-
     
     elif investment_choice_lower == "nflx" or investment_choice_lower == "netflix, inc." or investment_choice_lower == "netflix":
-        
-        investment_choice_profile = "Netflix, Inc. operates as a streaming entertainment service company. The firm provides subscription service streaming movies and television episodes over the internet."
 
         investment_choice = {
             "Netflix, Inc. (NFLX)" : round(float(242.70),2)
         }
 
 
-    return investment_choice, investment_choice_profile
+    return investment_choice
 
+
+# DISPLAY PLAYER INVESTMENT ASSET PROFILE
+def display_player_investment_asset_profile():
+    asset = assign_player_investment()
+    
+    if asset == "Meta Platforms, Inc. (META)":
+        investment_choice_profile = "Meta Platforms, Inc., engages in the development of social media applications. It builds technology that helps people connect, find communities, and grow businesses."
+
+    elif asset == "Netflix, Inc. (NFLX)":
+        investment_choice_profile = "Netflix, Inc. operates as a streaming entertainment service company. The firm provides subscription service streaming movies and television episodes over the internet."
+
+    return investment_choice_profile
 
 # DISPLAY PLAYER PORTFOLIO
 def display_player_portfolio():
