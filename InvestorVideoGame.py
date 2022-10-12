@@ -10,8 +10,6 @@ from sys import platform
 # CLEAR USER TERMINAL AFTER CHECKING THEIR OPERATING SYSTEM
 def clear_terminal():
 
-    print(platform)
-
     if platform == "linux" or platform == "linux2": # LINUX
         os.system("clear")
 
@@ -212,28 +210,62 @@ def display_player_portfolio():
 
 
 # GENERATE RANDOM EVENTS AND SCENARIOS
-def random_generator(asset):
+def random_generator_news(asset):
     random_Days = random.randint(1, 6)
 
     # sudden breaking news
     if random_Days < 6:
-        random_Event_good = [f"{asset} has signed a striking deal with tech giant for $1 billion.", f"The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"{asset} to discuss stock buyback in next shareholders meeting."]
-        random_Event_bad = [f"The CEO of {asset} is stepping down and discontinuing operations.", f"The databases of {asset} have been hacked: personal details of private investors and/or users have been breached.", f"Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm."]
+        random_Event_good = [f"BREAKING: {asset} has signed a striking deal with tech giant for $1 billion.", f"BREAKING: The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"BREAKING: {asset} to discuss stock buyback in next shareholders meeting."]
+        random_Event_bad = [f"BREAKING: The CEO of {asset} is stepping down and discontinuing operations.", f"BREAKING: The databases of {asset} have been hacked: personal details of private investors and/or users have been breached - CEO confirms", f"BREAKING: Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm."]
  
         random_Event_sentiment_pick = random.randint(0, 1)
  
         if random_Event_sentiment_pick == 0:
             random_Event_pick = random.randint(0, (len(random_Event_bad)-1))
             random_Event_picked = random_Event_bad[random_Event_pick]
+            random_Event_sentiment = "bad"
 
         elif random_Event_sentiment_pick == 1:
             random_Event_pick = random.randint(0, (len(random_Event_good)-1))
             random_Event_picked = random_Event_good[random_Event_pick]
+            random_Event_sentiment = "good"
 
     else:
-        random_Event_good = [f"Earnings Call: Revenues of {asset} exceed analyst expectations by 20%.", f"Warren Buffett's billion-dollar investment firm Berkshire Hathaway has bought 9.5% of {asset} shares."]
+        random_Event_good = [f"Earnings Call: Revenues of {asset} exceed analyst expectations by 20%.", f"Warren Buffett's billion-dollar investment firm Berkshire Hathaway has bought 9.5% of {asset}."]
+        random_Event_bad = [f"Earnings call: Revenues of {asset} miss analyst expectations by 15%.", f"Institutions dump {asset} stock ahead of anticipated slump in earnings."]
 
-    return random_Event_picked
+        random_Event_sentiment_pick = random.randint(0, 1)
+ 
+        if random_Event_sentiment_pick == 0:
+            random_Event_pick = random.randint(0, (len(random_Event_bad)-1))
+            random_Event_picked = random_Event_bad[random_Event_pick]
+            random_Event_sentiment = "bad"
+
+        elif random_Event_sentiment_pick == 1:
+            random_Event_pick = random.randint(0, (len(random_Event_good)-1))
+            random_Event_picked = random_Event_good[random_Event_pick]
+            random_Event_sentiment = "good"
+
+    return random_Event_picked, random_Event_sentiment
+
+
+# GENERATE RANDOM PRICE ACTION BASED ON SENTIMENT OF RANDOM NEWS
+def random_generator_prices(asset, asset_price):
+    news, sentiment = random_generator_news(asset)
+
+    percentage_number = round(random.uniform(15, 55), 2)
+    percentage_decimal = percentage_number / 100
+
+    percentage_print = str(percentage_number) + "%"
+    
+    if sentiment == "good":
+        new_asset_price = round(asset_price * (1 + percentage_decimal),2)
+
+    elif sentiment == "bad":
+        new_asset_price = round(asset_price * (1 - percentage_decimal),2)
+
+    return new_asset_price, percentage_print
+
 
 # PLAYER USERNAME EASTER EGG
 player_username_easter_egg_dict = {
@@ -251,6 +283,7 @@ player_username_easter_egg_dict = {
     }
 
 player_username_easter_egg_list = list(player_username_easter_egg_dict.keys())
+
 
 ########## INTRO ##########
 
@@ -397,24 +430,37 @@ display_player_portfolio()
 empty_line()
 continue_or_quit()
 
-start_new_window()
+clear_terminal()
 
 time.sleep(1)
 
 print("""
-
- ________   _______   ___       __   ________           ___  ___  _______   ________  ________  ___       ___  ________   _______   ________      
-|\   ___  \|\  ___ \ |\  \     |\  \|\   ____\         |\  \|\  \|\  ___ \ |\   __  \|\   ___ \|\  \     |\  \|\   ___  \|\  ___ \ |\   ____\     
-\ \  \\ \  \ \   __/|\ \  \    \ \  \ \  \___|_        \ \  \\\  \ \   __/|\ \  \|\  \ \  \_|\ \ \  \    \ \  \ \  \\ \  \ \   __/|\ \  \___|_    
- \ \  \\ \  \ \  \_|/_\ \  \  __\ \  \ \_____  \        \ \   __  \ \  \_|/_\ \   __  \ \  \ \\ \ \  \    \ \  \ \  \\ \  \ \  \_|/_\ \_____  \   
-  \ \  \\ \  \ \  \_|\ \ \  \|\__\_\  \|____|\  \        \ \  \ \  \ \  \_|\ \ \  \ \  \ \  \_\\ \ \  \____\ \  \ \  \\ \  \ \  \_|\ \|____|\  \  
-   \ \__\\ \__\ \_______\ \____________\____\_\  \        \ \__\ \__\ \_______\ \__\ \__\ \_______\ \_______\ \__\ \__\\ \__\ \_______\____\_\  \ 
-    \|__| \|__|\|_______|\|____________|\_________\        \|__|\|__|\|_______|\|__|\|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|\_________\
-                                       \|_________|                                                                                   \|_________|
-                                                                                                                                                  
-                                                                                                                                                  
-
+                                                   /$$                                 /$$ /$$ /$$                              
+                                                  | $$                                | $$| $$|__/                              
+ /$$$$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$$      | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$| $$ /$$ /$$$$$$$   /$$$$$$   /$$$$$$$
+| $$__  $$ /$$__  $$| $$ | $$ | $$ /$$_____/      | $$__  $$ /$$__  $$ |____  $$ /$$__  $$| $$| $$| $$__  $$ /$$__  $$ /$$_____/
+| $$  \ $$| $$$$$$$$| $$ | $$ | $$|  $$$$$$       | $$  \ $$| $$$$$$$$  /$$$$$$$| $$  | $$| $$| $$| $$  \ $$| $$$$$$$$|  $$$$$$ 
+| $$  | $$| $$_____/| $$ | $$ | $$ \____  $$      | $$  | $$| $$_____/ /$$__  $$| $$  | $$| $$| $$| $$  | $$| $$_____/ \____  $$
+| $$  | $$|  $$$$$$$|  $$$$$/$$$$/ /$$$$$$$/      | $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$| $$| $$| $$  | $$|  $$$$$$$ /$$$$$$$/
+|__/  |__/ \_______/ \_____/\___/ |_______/       |__/  |__/ \_______/ \_______/ \_______/|__/|__/|__/  |__/ \_______/|_______/ 
 """)
-print(random_generator(player_investment_converted))
+
+time.sleep(1)
+
+empty_line()
+
+news, sentiment = random_generator_news(player_investment_converted)
+print(f"[NEWS] {news}")
+print(f"[SENTIMENT] {sentiment}")
+
+time.sleep(1)
+
+new_asset_price, percentage_print = random_generator_prices(player_investment_converted, assigned_buyPrice)
+print(f"[BUY PRICE ($)] {assigned_buyPrice}")
+print(f"[NEW ASSET PRICE] {new_asset_price}")
+print(f"[PERCENTAGE MOVE (%)] {percentage_print}")
+
+price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
+print(f"[PRICE DIFFERENCE SINCE BOUGHT ($)] {format(price_difference, '.2f')}")
 
 time.sleep(100)
