@@ -32,23 +32,28 @@ def empty_line():
 def start_new_window():
     clear_terminal()
     empty_line()
+    empty_line()
+    empty_line()
 
 
 # DISPLAY THE RULES OF THE GAME
 def display_rules():
-    print("+-------------------------------------------------------------------------  ABOUT THE GAME  --------------------------------------------------------------------------+")
-    print("|                                                                                                                                                                     |")
-    print("|    This game is an investing simulation that enables players to learn the risks and rewards involved in the decision-making and risk-taking of financial markets.   |")
-    print("|                                                                                                                                                                     |")
-    print("|    You will start off with a balance of $100,000 to invest and grow your money through your chosen asset(s).                                                        |")
-    print("|    Your goal is to win the challenge by growing your money into $1,000,000.                                                                                         |")
-    print("|                                                                                                                                                                     |")
-    print("|    A fully randomised set of economic events will be presented to you, and you will be given the option to buy, hold, or sell.                                      |")
-    print("|    In order to win the game, you must search for clues in the news, read between the lines, and play some hunches.                                                  |")
-    print("|                                                                                                                                                                     |")
-    print("|    The game will end once you have beat the challenge, or run out of money. You may type QUIT at any time to leave the game.                                        |")
-    print("|                                                                                                                                                                     |")
-    print("+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+")
+    print("+-------------------------------------------------  ABOUT THE GAME  -------------------------------------------------+")
+    print("|                                                                                                                    |")
+    print("|    This game is an investing simulation that enables players to learn the risks and rewards involved in the        |")
+    print("|    decision-making and risk-taking of financial markets.                                                           |")
+    print("|                                                                                                                    |")
+    print("|    You will start off with a balance of $100,000 to invest and grow your money through your chosen asset(s).       |")
+    print("|    Your goal is to win the challenge by growing your money into $1,000,000.                                        |")
+    print("|                                                                                                                    |")
+    print("|    A fully randomised set of economic events will be presented to you, and you will be given the option to         |")
+    print("|    buy, hold, or sell.                                                                                             |")
+    print("|                                                                                                                    |")
+    print("|    In order to win the game, you must search for clues in the news, read between the lines, and play some          |")
+    print("|    hunches. The game will end once you have beat the challenge, or run out of money. You may type QUIT at          |")
+    print("|    any time to leave the game.                                                                                     |")
+    print("|                                                                                                                    |")
+    print("+--------------------------------------------------------------------------------------------------------------------+")
 
 
 # PRESS ANY KEY TO CONTINUE OR TYPE "QUIT" TO QUIT
@@ -428,9 +433,7 @@ display_player_portfolio()
 empty_line()
 continue_or_quit()
 
-clear_terminal()
-
-time.sleep(1)
+start_new_window()
 
 print("""
                                                    /$$                                 /$$ /$$ /$$                              
@@ -448,18 +451,31 @@ time.sleep(1)
 empty_line()
 
 news, sentiment = random_generator_news(player_investment_converted)
-print(f"[NEWS] {news}")
-print(f"[SENTIMENT] {sentiment}")
+print(f"News        {news}")
+print(f"Sentiment   {sentiment.title()}")
 
 time.sleep(1)
 
+empty_line()
+
 new_asset_price, percentage_print = random_generator_prices(assigned_buyPrice, sentiment)
-print(f"[BUY PRICE ($)] {assigned_buyPrice}")
-print(f"[NEW ASSET PRICE] {new_asset_price}")
-print(f"[PERCENTAGE MOVE (%)] {percentage_print}")
+
+print(f"_______________ {player_investment_converted} _______________")
+empty_line()
+print(f"($) Buy price                           {assigned_buyPrice}")
+print(f"($) Current price                       {new_asset_price}")
+print(f"(%) Percentage move                     {percentage_print}")
 
 price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
-print(f"[PRICE DIFFERENCE SINCE BOUGHT ($)] {format(price_difference, '.2f')}")
+print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
+
+underscore_counter = 0
+for i in range(len(player_investment_converted)):
+    underscore_counter = underscore_counter + 1
+
+underscores = "_" * (underscore_counter + 2)
+empty_line()
+print(f"_______________{underscores}_______________")
 
 
 ######### UPDATES PLAYER VALUES ##########
