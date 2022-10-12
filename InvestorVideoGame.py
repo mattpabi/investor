@@ -211,6 +211,30 @@ def display_player_portfolio():
     print("__________________________________________________________________________")
 
 
+# GENERATE RANDOM EVENTS AND SCENARIOS
+def random_generator(asset):
+    random_Days = random.randint(1, 6)
+
+    # sudden breaking news
+    if random_Days < 6:
+        random_Event_good = [f"{asset} has signed a striking deal with tech giant for $1 billion.", f"The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"{asset} to discuss stock buyback in next shareholders meeting."]
+        random_Event_bad = [f"The CEO of {asset} is stepping down and discontinuing operations.", f"The databases of {asset} have been hacked: personal details of private investors and/or users have been breached.", f"Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm."]
+ 
+        random_Event_sentiment_pick = random.randint(0, 1)
+ 
+        if random_Event_sentiment_pick == 0:
+            random_Event_pick = random.randint(0, (len(random_Event_bad)-1))
+            random_Event_picked = random_Event_bad[random_Event_pick]
+
+        elif random_Event_sentiment_pick == 1:
+            random_Event_pick = random.randint(0, (len(random_Event_good)-1))
+            random_Event_picked = random_Event_good[random_Event_pick]
+
+    else:
+        random_Event_good = [f"Earnings Call: Revenues of {asset} exceed analyst expectations by 20%.", f"Warren Buffett's billion-dollar investment firm Berkshire Hathaway has bought 9.5% of {asset} shares."]
+
+    return random_Event_picked
+
 # PLAYER USERNAME EASTER EGG
 player_username_easter_egg_dict = {
     "steve jobs": "Apple",
@@ -224,15 +248,6 @@ player_username_easter_egg_dict = {
     "mark zuckerberg": "Facebook",
     "reed hastings": "Netflix",
     "marc randolph":"Netflix",
-    "lebron james" : "the Lakers",
-    "stephen curry": "the Warriors",
-    "michael jordan": "the Bulls",
-    "shaquille o'neal": "the Lakers",
-    "ryan sean adams": "Bankless",
-    "david hoffman": "Bankless",
-    "vitalik buterin": "making Ethereum",
-    "satoshi nakamoto": "making Bitcoin",
-    "marc cuban": "investing"
     }
 
 player_username_easter_egg_list = list(player_username_easter_egg_dict.keys())
@@ -379,5 +394,27 @@ pf_balance_investments_pnl = pf_price_total_acquisition_cost -  pf_price_current
 empty_line()
 display_player_portfolio()
 
+empty_line()
+continue_or_quit()
+
+start_new_window()
+
+time.sleep(1)
+
+print("""
+
+ ________   _______   ___       __   ________           ___  ___  _______   ________  ________  ___       ___  ________   _______   ________      
+|\   ___  \|\  ___ \ |\  \     |\  \|\   ____\         |\  \|\  \|\  ___ \ |\   __  \|\   ___ \|\  \     |\  \|\   ___  \|\  ___ \ |\   ____\     
+\ \  \\ \  \ \   __/|\ \  \    \ \  \ \  \___|_        \ \  \\\  \ \   __/|\ \  \|\  \ \  \_|\ \ \  \    \ \  \ \  \\ \  \ \   __/|\ \  \___|_    
+ \ \  \\ \  \ \  \_|/_\ \  \  __\ \  \ \_____  \        \ \   __  \ \  \_|/_\ \   __  \ \  \ \\ \ \  \    \ \  \ \  \\ \  \ \  \_|/_\ \_____  \   
+  \ \  \\ \  \ \  \_|\ \ \  \|\__\_\  \|____|\  \        \ \  \ \  \ \  \_|\ \ \  \ \  \ \  \_\\ \ \  \____\ \  \ \  \\ \  \ \  \_|\ \|____|\  \  
+   \ \__\\ \__\ \_______\ \____________\____\_\  \        \ \__\ \__\ \_______\ \__\ \__\ \_______\ \_______\ \__\ \__\\ \__\ \_______\____\_\  \ 
+    \|__| \|__|\|_______|\|____________|\_________\        \|__|\|__|\|_______|\|__|\|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|\_________\
+                                       \|_________|                                                                                   \|_________|
+                                                                                                                                                  
+                                                                                                                                                  
+
+""")
+print(random_generator(player_investment_converted))
 
 time.sleep(100)
