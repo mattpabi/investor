@@ -435,8 +435,9 @@ continue_or_quit()
 
 start_new_window()
 
-print("""
-                                                   /$$                                 /$$ /$$ /$$                              
+def news_headlines():
+    print("""
+                                                  /$$                                 /$$ /$$ /$$                              
                                                   | $$                                | $$| $$|__/                              
  /$$$$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$$      | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$| $$ /$$ /$$$$$$$   /$$$$$$   /$$$$$$$
 | $$__  $$ /$$__  $$| $$ | $$ | $$ /$$_____/      | $$__  $$ /$$__  $$ |____  $$ /$$__  $$| $$| $$| $$__  $$ /$$__  $$ /$$_____/
@@ -444,64 +445,65 @@ print("""
 | $$  | $$| $$_____/| $$ | $$ | $$ \____  $$      | $$  | $$| $$_____/ /$$__  $$| $$  | $$| $$| $$| $$  | $$| $$_____/ \____  $$
 | $$  | $$|  $$$$$$$|  $$$$$/$$$$/ /$$$$$$$/      | $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$| $$| $$| $$  | $$|  $$$$$$$ /$$$$$$$/
 |__/  |__/ \_______/ \_____/\___/ |_______/       |__/  |__/ \_______/ \_______/ \_______/|__/|__/|__/  |__/ \_______/|_______/ 
-""")
+    """)
 
-time.sleep(1)
+    time.sleep(1)
 
-empty_line()
+    empty_line()
 
-news, sentiment = random_generator_news(player_investment_converted)
-print(f"News        {news}")
-print(f"Sentiment   {sentiment.title()}")
+    news, sentiment = random_generator_news(player_investment_converted)
+    print(f"News        {news}")
+    print(f"Sentiment   {sentiment.title()}")
 
-time.sleep(1)
+    time.sleep(1)
 
-empty_line()
+    empty_line()
 
-new_asset_price, percentage_print = random_generator_prices(assigned_buyPrice, sentiment)
+    new_asset_price, percentage_print = random_generator_prices(assigned_buyPrice, sentiment)
 
-print(f"_______________ {player_investment_converted} _______________")
-empty_line()
-print(f"($) Buy price                           {assigned_buyPrice}")
-print(f"($) Current price                       {new_asset_price}")
-print(f"(%) Percentage move                     {percentage_print}")
+    print(f"_______________ {player_investment_converted} _______________")
+    print(f"($) Buy price                           {assigned_buyPrice}")
+    print(f"($) Current price                       {new_asset_price}")
+    print(f"(%) Percentage move                     {percentage_print}")
 
-price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
-print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
+    price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
+    print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
 
-underscore_counter = 0
-for i in range(len(player_investment_converted)):
-    underscore_counter = underscore_counter + 1
+    underscore_counter = 0
+    for i in range(len(player_investment_converted)):
+        underscore_counter = underscore_counter + 1
 
-underscores = "_" * (underscore_counter + 2)
-empty_line()
-print(f"_______________{underscores}_______________")
+    underscores = "_" * (underscore_counter + 2)
+    print(f"_______________{underscores}_______________")
 
 
-######### UPDATES PLAYER VALUES ##########
+    ######### UPDATES PLAYER VALUES ##########
 
-# positions
-pf_positions_open = 1
-pf_positions_asset = player_investment_converted
-pf_postions_shares = bought_shares
+    # positions
+    pf_positions_open = 1
+    pf_positions_asset = player_investment_converted
+    pf_postions_shares = bought_shares
 
-# prices and values
-pf_price_current = new_asset_price
-pf_price_current_total_value = new_asset_price * pf_postions_shares
-pf_price_when_bought = assigned_buyPrice
-pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
+    # prices and values
+    pf_price_current = new_asset_price
+    pf_price_current_total_value = new_asset_price * pf_postions_shares
+    pf_price_when_bought = assigned_buyPrice
+    pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
 
-# balances
-pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
-pf_balance_investments = pf_price_current_total_value # value of investments
-pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
+    # balances
+    pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+    pf_balance_investments = pf_price_current_total_value # value of investments
+    pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
 
-empty_line()
-display_player_portfolio()
+    empty_line()
+    empty_line()
+    display_player_portfolio()
 
-empty_line()
+    empty_line()
 
-buy_sell_hold = input("""
+    news_headlines()
+
+    buy_sell_hold = input("""
 Considering recent news, would you like to:
 (a) Sell your shares, exiting your position
 (b) Hold your position, take no action
@@ -510,75 +512,86 @@ Considering recent news, would you like to:
 
 Please input your choice: """)
 
-if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
-    buy_sell_hold_Choice = "sell"
-    # balances
-    pf_balance_cash = pf_price_current_total_value
-    pf_balance_investments = 0 #starting value of investments
-    pf_balance_investments_pnl = 0 #starting + or - of investments
+    if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+        buy_sell_hold_Choice = "sell"
+        # balances
+        pf_balance_cash = pf_price_current_total_value
+        pf_balance_investments = 0 #starting value of investments
+        pf_balance_investments_pnl = 0 #starting + or - of investments
 
-    # positions
-    pf_positions_open = 0
-    pf_positions_asset = "N/A"
-    pf_postions_shares = 0
+        # positions
+        pf_positions_open = 0
+        pf_positions_asset = "N/A"
+        pf_postions_shares = 0
 
-    # prices and values
-    pf_price_current = 0
-    pf_price_current_total_value = 0
-    pf_price_when_bought = 0
-    pf_price_total_acquisition_cost = 0
+        # prices and values
+        pf_price_current = 0
+        pf_price_current_total_value = 0
+        pf_price_when_bought = 0
+        pf_price_total_acquisition_cost = 0
 
-elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
-    buy_sell_hold_Choice = "hold"
+    elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+        buy_sell_hold_Choice = "hold"
 
-else:
-    if buy_sell_hold.lower() != "quit":
+    else:
+        if buy_sell_hold.lower() != "quit":
 
-        while buy_sell_hold.lower() != "quit":
+            while buy_sell_hold.lower() != "quit":
 
-            buy_sell_hold = input("""
-Considering recent news, would you like to:
-(a) Sell your shares, exiting your position
-(b) Hold your position, take no action
+                buy_sell_hold = input("Please input a valid choice: ")
+                
+                if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+                    buy_sell_hold_Choice = "sell"
+                    # balances
+                    pf_balance_cash = pf_price_current_total_value
+                    pf_balance_investments = 0 #starting value of investments
+                    pf_balance_investments_pnl = 0 #starting + or - of investments
 
-*You may not buy more shares as you have a cash balance of $0.00
+                    # positions
+                    pf_positions_open = 0
+                    pf_positions_asset = "N/A"
+                    pf_postions_shares = 0
 
-Please input a valid choice: """)
-            
-            if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
-                buy_sell_hold_Choice = "sell"
-                # balances
-                pf_balance_cash = pf_price_current_total_value
-                pf_balance_investments = 0 #starting value of investments
-                pf_balance_investments_pnl = 0 #starting + or - of investments
+                    # prices and values
+                    pf_price_current = 0
+                    pf_price_current_total_value = 0
+                    pf_price_when_bought = 0
+                    pf_price_total_acquisition_cost = 0
+                    break
 
-                # positions
-                pf_positions_open = 0
-                pf_positions_asset = "N/A"
-                pf_postions_shares = 0
+                elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+                    buy_sell_hold_Choice = "hold"
+                    break
 
-                # prices and values
-                pf_price_current = 0
-                pf_price_current_total_value = 0
-                pf_price_when_bought = 0
-                pf_price_total_acquisition_cost = 0
-                break
+                elif buy_sell_hold.lower() == "quit":
+                    print("See you soon.")
+                    quit()
 
-            elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
-                buy_sell_hold_Choice = "hold"
-                break
+        elif buy_sell_hold.lower() == "quit":
+            print("See you soon.")
+            quit()
 
-            elif buy_sell_hold.lower() == "quit":
-                print("See you soon.")
-                quit()
+    return buy_sell_hold_Choice
 
-    elif buy_sell_hold.lower() == "quit":
-        print("See you soon.")
-        quit()
+buy_sell_hold_Choice = news_headlines()
 
+time.sleep(1)
+
+empty_line()
 print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
+
+time.sleep(1)
 
 empty_line()
 display_player_portfolio()
+
+empty_line()
+continue_or_quit()
+
+start_new_window()
+
+if buy_sell_hold_Choice.lower() == "hold":
+    while buy_sell_hold_Choice.lower() != "sell" != "quit":
+        new_asset_price = news_headlines()
 
 time.sleep(100)
