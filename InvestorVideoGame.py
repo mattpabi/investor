@@ -63,7 +63,7 @@ def continue_or_quit():
 def display_ivestment_options():
     print("+--------  INVESTMENT OPTIONS  --------+")
     print("|                                      |")
-    print("+--  Number  ---  Class  --------------+")
+    print("+--- Number ----- Class ---------------+")
     print("|    1            Stocks               |")
     print("|    2            Real estate          |")
     print("|    3            Lottery tickets      |")
@@ -71,7 +71,56 @@ def display_ivestment_options():
     print("|                                      |")
     print("+--------------------------------------+")
 
+
+# PLAYER INVESTMENT OPTION - INITIALISE FOR PORTFOLIO
+player_assetClass = " "
+player_assetClass_lower = player_assetClass.lower()
+
+# PLAYER INVESTMENT OPTION - ASSIGNING TO ASSET CLASS
+def assign_player_assetClass():
+    if player_assetClass == "1":
+        player_assetClass == "Stocks"
+
+    elif player_assetClass_lower == "stocks" or "equities" or "stock market":
+        player_assetClass == "Stocks"
+
+    elif player_assetClass == "2":
+        player_assetClass == "Real estate"
     
+    elif player_assetClass_lower == "real estate":
+        player_assetClass == "Real estate"
+
+    elif player_assetClass == "3":
+        player_assetClass == "Lottery tickets"
+    
+    elif player_assetClass_lower == "lottery tickets" or "lottery":
+        player_assetClass == "Lottery tickets"
+    
+    elif player_assetClass == "4":
+        player_assetClass == "Cryptocurrencies"
+    
+    elif player_assetClass_lower == "cryptocurrencies" or "crypto":
+        player_assetClass == "Cryptocurrencies"
+
+
+# DISPLAY PLAYER PORTFOLIO
+def display_player_portfolio():
+    print(f"______________________________  PORTFOLIO  ______________________________\n")
+    print(f"   Open positions                             1 \n")
+
+    print(f"   Invested asset class                       {player_assetClass}")
+    print(f"   INvested asset                   ")
+    print(f"   Assets in holding \n")
+    
+    print(f"   ($) Current price")
+    print(f"   ($) Current total value")
+    print(f"   ($) Price when bought")
+    print(f"   ($) Total acquisition cost \n")
+
+    print(f"   ($) Current portfolio value")
+    print(f"   ($) Profit / Loss \n")
+    print("__________________________________________________________________________")
+
 
 ########## INTRO ##########
 
@@ -96,18 +145,21 @@ Hello, {username}, and welcome to:
 ready_for_rules = input("Are you ready to review the rules? (yes/no): ")
 ready_for_rules_lower = ready_for_rules.lower()
 
-
-print(ready_for_rules_lower)
-time.sleep(1)
+time.sleep(0.5)
 
 if ready_for_rules_lower != "yes":
+    empty_line()
     print("You are inexperienced and will get rekt.")
     print("Come back next time when you are ready, see you soon.")
+    empty_line()
     quit()
 
-print("Let's begin")
-time.sleep(1)
+print("> Let's begin")
 
+print("\nFor the best experience, please make sure that you are playing this game in fullscreen.")
+
+empty_line()
+continue_or_quit()
 
 ########## DISPLAY RULES ##########
 
@@ -118,8 +170,17 @@ display_rules()
 empty_line()
 continue_or_quit()
 
-empty_line()
+########## DISPLLAY INVESTMENT OPTIONS ##########
+
+clear_terminal()
+
 display_ivestment_options()
 
 empty_line()
-continue_or_quit()
+player_assetClass = input("Please input the your desired asset class to invest in: ")
+print(f"> You have chosen to invest in {player_assetClass}.")
+print("Here are the available assets in this class:")
+
+empty_line()
+
+display_player_portfolio()
