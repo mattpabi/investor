@@ -60,6 +60,19 @@ def continue_or_quit():
     time.sleep(1)
 
 
+# STOCKS DICTIONARY
+stocks_dict = {
+    "Apple, Inc. (AAPL)" : round(float(168.49),2),
+    "Microsoft Corp. (MSFT)" : round(float(287.02),2),
+    "Alphabet, Inc. (GOOGL)" : round(float(118.84),2),
+    "Amazon.com, Inc. (AMZ)" : round(float(140.64),2),
+    "Tesla, Inc. (TSLA)" : round(float(859.89),2),
+    "Berkshire Hathaway (BKR-B)" : round(float(296.47),2),
+    "Meta Platforms, Inc. (META)" : round(float(177.49),2),
+    "Netflix, Inc. (NFLX)" : round(float(242.70),2)
+}
+
+
 # DISPLAY INVESTMENT OPTIONS
 def display_stocks():
     print("+-------------------------  INVESTMENT OPTIONS  ------------------------+")
@@ -91,71 +104,40 @@ def assign_player_investment(investment_choice):
     
 
     elif investment_choice_lower == "aapl" or investment_choice_lower == "apple, inc." or investment_choice_lower == "apple":
-        
-        investment_choice = {
-            "Apple, Inc. (AAPL)" : float(168.49)
-        }
 
         investment_choice_profile = "Apple, Inc. engages in the design, manufacture, and sale of smartphones, personal computers, tablets, wearables and accessories, and other varieties of related services."
 
 
     elif investment_choice_lower == "msft" or investment_choice_lower == "microsoft corp." or investment_choice_lower == "microsoft":
-        
-        investment_choice = {
-            "Microsoft Corp. (MSFT)" : float(287.02)
-        }
 
         investment_choice_profile = "Microsoft Corp. engages in the development and support of software, services, devices, and solutions."
 
 
     elif investment_choice_lower == "googl" or investment_choice_lower == "alphabet" or investment_choice_lower == "alphabet, inc." or investment_choice_lower == "google":
 
-        investment_choice = {
-            "Alphabet, Inc. (GOOGL)" : float(118.84)
-        }
-
         investment_choice_profile = "Alphabet, Inc. is a holding company, which engages in the business of acquisition and operation of different companies, such as its main internet products: ads, Android, Chrome, hardware, Google Cloud, Google Maps, Google Play, Search, and YouTube."
 
     
     elif investment_choice_lower == "amz" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
-
-        investment_choice = {
-            "Amazon.com, Inc. (AMZ)" : float(140.64)
-        }
 
         investment_choice_profile = "Amazon.com, Inc. is a multinational technology company, which engages in the provision of online retail shopping services."
 
 
     elif investment_choice_lower == "tsla" or investment_choice_lower == "tesla, inc." or investment_choice_lower == "tesla":
         
-        investment_choice = {
-            "Tesla, Inc. (TSLA)" : float(859.89)
-        }
-        
         investment_choice_profile = "Tesla, Inc. engages in the design, development, manufacture, and sale of fully electric vehicles and energy generation and storage systems."
     
 
     elif investment_choice_lower == "bkr-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire hathaway":
 
-        investment_choice = {
-            "Berkshire Hathaway (BKR-B)" : float(296.47)
-        }
-    
         investment_choice_profile = "Berkshire Hathaway, Inc. engages in the provision of property and casualty insurance and reinsurance, utilities and energy, freight rail transportation, finance, manufacturing, and retailing services."
     
 
     elif investment_choice_lower == "meta" or investment_choice_lower == "meta platforms, inc." or investment_choice_lower == "meta platforms" or investment_choice_lower == "meta":
-
-        investment_choice = {
-            "Meta Platforms, Inc. (META)" : round(float(177.49),2)
-        }
         
     
     elif investment_choice_lower == "nflx" or investment_choice_lower == "netflix, inc." or investment_choice_lower == "netflix":
-
-        investment_choice = {
-            "Netflix, Inc. (NFLX)" : round(float(242.70),2)
-        }
+   
 
 
     return investment_choice
