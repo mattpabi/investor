@@ -70,7 +70,7 @@ stocks_dict = {
     "Alphabet, Inc. (GOOGL)" : "118.84",
     "Amazon.com, Inc. (AMZ)" : "140.64",
     "Tesla, Inc. (TSLA)" : "859.89",
-    "Berkshire Hathaway (BKR-B)" : "296.47",
+    "Berkshire Hathaway (BRK-B)" : "296.47",
     "Meta Platforms, Inc. (META)" : "177.49",
     "Netflix, Inc. (NFLX)" : "242.70"
 }
@@ -86,7 +86,7 @@ def display_stocks():
     print("|    GOOGL        Alphabet, Inc. (Google)                    $118.84    |")
     print("|    AMZ          Amazon.com, Inc.                           $140.64    |")
     print("|    TSLA         Tesla, Inc.                                $859.89    |")
-    print("|    BKR-B        Berkshire Hathaway, Inc.                   $296.47    |")
+    print("|    BRK-B        Berkshire Hathaway, Inc.                   $296.47    |")
     print("|    META         Meta Platforms, Inc. (FKA Facebook)        $177.49    |")
     print("|    NFLX         Netflix, Inc.                              $242.70    |")
     print("|                                                                       |")
@@ -94,7 +94,7 @@ def display_stocks():
 
 
 # STOCK KEYWORDS (CHECK IF INPUT IS IN THIS LIST)
-stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amz", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "bkr-b", "berkshire hathaway, inc.", "berkshire hathaway", "berkshire", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
+stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amz", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "brk-b", "berkshire hathaway, inc.", "berkshire hathaway", "berkshire", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
 
 
 # STOCK CHOICE INPUT CONVERTER
@@ -122,8 +122,8 @@ def player_investment_choice_converter(investment_choice):
         investment_choice = "Tesla, Inc. (TSLA)"
         return investment_choice
 
-    elif investment_choice_lower == "bkr-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire" or investment_choice_lower == "berkshire hathaway":
-        investment_choice = "Berkshire Hathaway (BKR-B)"
+    elif investment_choice_lower == "brk-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire" or investment_choice_lower == "berkshire hathaway":
+        investment_choice = "Berkshire Hathaway (BRK-B)"
         return investment_choice
 
     elif investment_choice_lower == "meta" or investment_choice_lower == "meta platforms, inc." or investment_choice_lower == "meta platforms" or investment_choice_lower == "meta":
@@ -158,7 +158,7 @@ def assign_player_investment_profile(investment_choice):
         investment_choice_profile = "Tesla, Inc. engages in the design, development, manufacture, and sale of fully electric vehicles and energy generation and storage systems."
         return investment_choice_profile
 
-    elif investment_choice == "Berkshire Hathaway (BKR-B)":
+    elif investment_choice == "Berkshire Hathaway (BRK-B)":
         investment_choice_profile = "Berkshire Hathaway, Inc. engages in the provision of property and casualty insurance and reinsurance, utilities and energy, freight rail transportation, finance, manufacturing, and retailing services."
         return investment_choice_profile
 
@@ -203,15 +203,15 @@ def display_player_portfolio():
     print(f"   ($) Price when bought                      {format(pf_price_when_bought, '.2f')}")
     print(f"   ($) Total acquisition cost                 {format(pf_price_total_acquisition_cost, '.2f')}\n")
 
-    print(f"   ($) Current cash on hand                   {format(pf_balance_cash, '.2f')}")
+    print(f"   ($) Current cash on hand                   {format(abs(pf_balance_cash), '.2f')}")
     print(f"   ($) Current value of investments           {format(pf_balance_investments, '.2f')}")
-    print(f"   ($) Profit / Loss                          {format(pf_balance_investments_pnl, '.2f')} \n")
+    print(f"   ($) Profit / Loss on open position         {format(pf_balance_investments_pnl, '.2f')} \n")
     print("__________________________________________________________________________")
 
 
 # GENERATE RANDOM EVENTS AND SCENARIOS
 def random_generator_news(asset):
-    random_Days = random.randint(1, 6)
+    random_Days = random.randint(1, 20)
 
     # sudden breaking news
     if random_Days < 6:
@@ -246,13 +246,11 @@ def random_generator_news(asset):
             random_Event_picked = random_Event_good[random_Event_pick]
             random_Event_sentiment = "good"
 
-    return random_Event_picked, random_Event_sentiment
+    return random_Event_picked, random_Event_sentiment # returns news, and sentiment
 
 
 # GENERATE RANDOM PRICE ACTION BASED ON SENTIMENT OF RANDOM NEWS
-def random_generator_prices(asset, asset_price):
-    news, sentiment = random_generator_news(asset)
-
+def random_generator_prices(asset_price, sentiment):
     percentage_number = round(random.uniform(15, 55), 2)
     percentage_decimal = percentage_number / 100
 
@@ -271,7 +269,7 @@ def random_generator_prices(asset, asset_price):
 player_username_easter_egg_dict = {
     "steve jobs": "Apple",
     "bill gates": "Microsoft",
-    "larry Page": "Google",
+    "larry page": "Google",
     "sergey brin": "Google",
     "jeff bezos": "Amazon",
     "elon musk": "Tesla",
@@ -455,12 +453,116 @@ print(f"[SENTIMENT] {sentiment}")
 
 time.sleep(1)
 
-new_asset_price, percentage_print = random_generator_prices(player_investment_converted, assigned_buyPrice)
+new_asset_price, percentage_print = random_generator_prices(assigned_buyPrice, sentiment)
 print(f"[BUY PRICE ($)] {assigned_buyPrice}")
 print(f"[NEW ASSET PRICE] {new_asset_price}")
 print(f"[PERCENTAGE MOVE (%)] {percentage_print}")
 
 price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
 print(f"[PRICE DIFFERENCE SINCE BOUGHT ($)] {format(price_difference, '.2f')}")
+
+
+######### UPDATES PLAYER VALUES ##########
+
+# positions
+pf_positions_open = 1
+pf_positions_asset = player_investment_converted
+pf_postions_shares = bought_shares
+
+# prices and values
+pf_price_current = new_asset_price
+pf_price_current_total_value = new_asset_price * pf_postions_shares
+pf_price_when_bought = assigned_buyPrice
+pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
+
+# balances
+pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+pf_balance_investments = pf_price_current_total_value # value of investments
+pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
+
+empty_line()
+display_player_portfolio()
+
+empty_line()
+
+buy_sell_hold = input("""
+Considering recent news, would you like to:
+(a) Sell your shares, exiting your position
+(b) Hold your position, take no action
+
+*You may not buy more shares as you have a cash balance of $0.00
+
+Please input your choice: """)
+
+if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+    buy_sell_hold_Choice = "sell"
+    # balances
+    pf_balance_cash = pf_price_current_total_value
+    pf_balance_investments = 0 #starting value of investments
+    pf_balance_investments_pnl = 0 #starting + or - of investments
+
+    # positions
+    pf_positions_open = 0
+    pf_positions_asset = "N/A"
+    pf_postions_shares = 0
+
+    # prices and values
+    pf_price_current = 0
+    pf_price_current_total_value = 0
+    pf_price_when_bought = 0
+    pf_price_total_acquisition_cost = 0
+
+elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+    buy_sell_hold_Choice = "hold"
+
+else:
+    if buy_sell_hold.lower() != "quit":
+
+        while buy_sell_hold.lower() != "quit":
+
+            buy_sell_hold = input("""
+Considering recent news, would you like to:
+(a) Sell your shares, exiting your position
+(b) Hold your position, take no action
+
+*You may not buy more shares as you have a cash balance of $0.00
+
+Please input a valid choice: """)
+            
+            if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+                buy_sell_hold_Choice = "sell"
+                # balances
+                pf_balance_cash = pf_price_current_total_value
+                pf_balance_investments = 0 #starting value of investments
+                pf_balance_investments_pnl = 0 #starting + or - of investments
+
+                # positions
+                pf_positions_open = 0
+                pf_positions_asset = "N/A"
+                pf_postions_shares = 0
+
+                # prices and values
+                pf_price_current = 0
+                pf_price_current_total_value = 0
+                pf_price_when_bought = 0
+                pf_price_total_acquisition_cost = 0
+                break
+
+            elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+                buy_sell_hold_Choice = "hold"
+                break
+
+            elif buy_sell_hold.lower() == "quit":
+                print("See you soon.")
+                quit()
+
+    elif buy_sell_hold.lower() == "quit":
+        print("See you soon.")
+        quit()
+
+print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
+
+empty_line()
+display_player_portfolio()
 
 time.sleep(100)
