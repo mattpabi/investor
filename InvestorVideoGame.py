@@ -77,7 +77,7 @@ stocks_dict = {
     "Apple, Inc. (AAPL)" : "168.49",
     "Microsoft Corp. (MSFT)" : "287.02",
     "Alphabet, Inc. (GOOGL)" : "118.84",
-    "Amazon.com, Inc. (AMZ)" : "140.64",
+    "Amazon.com, Inc. (AMZN)" : "140.64",
     "Tesla, Inc. (TSLA)" : "859.89",
     "Berkshire Hathaway (BRK-B)" : "296.47",
     "Meta Platforms, Inc. (META)" : "177.49",
@@ -117,19 +117,19 @@ def display_stocks():
     stockPrice_apple = float(stocks_dict.get("Apple, Inc. (AAPL)"))
     stockPrice_microsoft = float(stocks_dict.get("Microsoft Corp. (MSFT)"))
     stockPrice_alphabet = float(stocks_dict.get("Alphabet, Inc. (GOOGL)"))
-    stockPrice_amazon = float(stocks_dict.get("Amazon.com, Inc. (AMZ)"))
+    stockPrice_amazon = float(stocks_dict.get("Amazon.com, Inc. (AMZN)"))
     stockPrice_tesla = float(stocks_dict.get("Tesla, Inc. (TSLA)"))
     stockPrice_berkshire = float(stocks_dict.get("Berkshire Hathaway (BRK-B)"))
     stockPrice_meta = float(stocks_dict.get("Meta Platforms, Inc. (META)"))
     stockPrice_netflix = float(stocks_dict.get("Netflix, Inc. (NFLX)"))
     
-    print(f"f-------------------------  INVESTMENT OPTIONS  ------------------------+")
+    print(f"+-------------------------  INVESTMENT OPTIONS  ------------------------+")
     print(f"|                                                                       |")
     print(f"+--- Ticker ----- Company ---------------------------------- Price -----+")
     print(f"|    AAPL         Apple, Inc.                                ${format(stockPrice_apple, '.2f')}{investment_options_space_counter(format(stockPrice_apple, '.2f'))}|")
     print(f"|    MSFT         Microsoft Corp.                            ${format(stockPrice_microsoft, '.2f')}{investment_options_space_counter(format(stockPrice_microsoft, '.2f'))}|")
     print(f"|    GOOGL        Alphabet, Inc. (Google)                    ${format(stockPrice_alphabet, '.2f')}{investment_options_space_counter(format(stockPrice_alphabet, '.2f'))}|")
-    print(f"|    AMZ          Amazon.com, Inc.                           ${format(stockPrice_amazon, '.2f')}{investment_options_space_counter(format(stockPrice_amazon, '.2f'))}|")
+    print(f"|    AMZN         Amazon.com, Inc.                           ${format(stockPrice_amazon, '.2f')}{investment_options_space_counter(format(stockPrice_amazon, '.2f'))}|")
     print(f"|    TSLA         Tesla, Inc.                                ${format(stockPrice_tesla, '.2f')}{investment_options_space_counter(format(stockPrice_tesla, '.2f'))}|")
     print(f"|    BRK-B        Berkshire Hathaway, Inc.                   ${format(stockPrice_berkshire, '.2f')}{investment_options_space_counter(format(stockPrice_berkshire, '.2f'))}|")
     print(f"|    META         Meta Platforms, Inc. (FKA Facebook)        ${format(stockPrice_meta, '.2f')}{investment_options_space_counter(format(stockPrice_meta, '.2f'))}|")
@@ -139,7 +139,7 @@ def display_stocks():
 
 
 # STOCK KEYWORDS (CHECK IF INPUT IS IN THIS LIST)
-stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amz", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "brk-b", "berkshire hathaway, inc.", "berkshire hathaway", "berkshire", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
+stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amzn", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "brk-b", "berkshire hathaway, inc.", "berkshire hathaway", "berkshire", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
 
 
 # STOCK CHOICE INPUT CONVERTER
@@ -159,8 +159,8 @@ def player_investment_choice_converter(investment_choice):
         investment_choice = "Alphabet, Inc. (GOOGL)"
         return investment_choice
     
-    elif investment_choice_lower == "amz" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
-        investment_choice = "Amazon.com, Inc. (AMZ)"
+    elif investment_choice_lower == "amzn" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
+        investment_choice = "Amazon.com, Inc. (AMZN)"
         return investment_choice
 
     elif investment_choice_lower == "tsla" or investment_choice_lower == "tesla, inc." or investment_choice_lower == "tesla":
@@ -195,7 +195,7 @@ def assign_player_investment_profile(investment_choice):
         investment_choice_profile = "Alphabet, Inc. is a holding company, which engages in the business of acquisition and operation of different companies, such as its main internet products: ads, Android, Chrome, hardware, Google Cloud, Google Maps, Google Play, Search, and YouTube."
         return investment_choice_profile
     
-    elif investment_choice == "Amazon.com, Inc. (AMZ)":
+    elif investment_choice == "Amazon.com, Inc. (AMZN)":
         investment_choice_profile = "Amazon.com, Inc. is a multinational technology company, which engages in the provision of online retail shopping services."
         return investment_choice_profile
 
@@ -230,7 +230,7 @@ pf_price_when_bought = 0
 pf_price_total_acquisition_cost = 0
 
 # balances
-pf_balance_cash = 250000 #starting cash
+pf_balance_cash = 100000 #starting cash
 pf_balance_investments = 0 #starting value of investments
 pf_balance_investments_pnl = 0 #starting + or - of investments
 
@@ -260,8 +260,8 @@ def random_generator_news(asset):
 
     # sudden breaking news
     if random_Days < 6:
-        random_Event_good = [f"BREAKING: {asset} has signed a striking deal with tech giant for $1 billion.", f"BREAKING: The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"BREAKING: {asset} to discuss stock buyback in next shareholders meeting."]
-        random_Event_bad = [f"BREAKING: The CEO of {asset} is stepping down and discontinuing operations.", f"BREAKING: The databases of {asset} have been hacked: personal details of private investors and/or users have been breached - CEO confirms", f"BREAKING: Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm."]
+        random_Event_good = [f"BREAKING: {asset} has signed a striking deal with tech giant for $1 billion.", f"BREAKING: The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"BREAKING: {asset} to discuss stock buyback in next shareholders meeting.", f"BREAKING: 'The end of Quantitative Tightening brings forth Quantitative Easing' says Fed chairman Jerome Powell."]
+        random_Event_bad = [f"BREAKING: The CEO of {asset} is stepping down and may discountinue operations.", f"BREAKING: The databases of {asset} have been hacked: personal details of private investors and/or users have been breached - CEO confirms", f"BREAKING: Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm.", f"BREAKING: Fed chairman Jerome Powell announces a 100bps interest rate hike, suprising forecasters by 25bps."]
  
         random_Event_sentiment_pick = random.randint(0, 1)
  
@@ -276,8 +276,8 @@ def random_generator_news(asset):
             random_Event_sentiment = "good"
 
     else:
-        random_Event_good = [f"Earnings Call: Revenues of {asset} exceed analyst expectations by 20%.", f"Warren Buffett's billion-dollar investment firm Berkshire Hathaway has bought 9.5% of {asset}."]
-        random_Event_bad = [f"Earnings call: Revenues of {asset} miss analyst expectations by 15%.", f"Institutions dump {asset} stock ahead of anticipated slump in earnings."]
+        random_Event_good = [f"Earnings Call: Revenues of {asset} exceed analyst expectations by 20%.", f"Ray Dalio's billion-dollar hedge fund Bridgewater has bought {asset} stock.", f"U.S. Government to inject $1 Trillion into the market through bonds to incentivise spending, the S&P 500 and Dow 30 indexes both see a 10% recovery.", f"CPI and Core CPI prints 100bps less than analyst expectations, 'inflation is over' says economists."]
+        random_Event_bad = [f"Earnings call: Revenues of {asset} miss analyst expectations by 15%.", f"Institutions dump {asset} stock ahead of anticipated slump in earnings.", f"Economists warns of potential recession with high inflation, and 'too little too late' interest rate hikes.", f"Oil and food prices rise amid high inflation.", f"U.S. Federal Reserve raises interest rates by 200 bps for the first time since the 1900s."]
 
         random_Event_sentiment_pick = random.randint(0, 1)
  
@@ -328,6 +328,7 @@ def news_generator(player_investment_converted):
 
     empty_line()
 
+    #print the news and sentiment
     news, sentiment = random_generator_news(player_investment_converted)
     print(f"News        {news}")
     print(f"Sentiment   {sentiment.title()}")
@@ -342,11 +343,12 @@ def news_generator(player_investment_converted):
 
     pf_price_current = new_asset_price
 
+    #print a table showing the asset's price movement
     print(f"_______________ {player_investment_converted} _______________\n")
 
     print(f"($) Buy price                           {assigned_buyPrice}")
     print(f"($) Current price                       {new_asset_price}")
-    print(f"(%) Percentage move                     {percentage_print}")
+    print(f"(%) Percentage move since last price    {percentage_print}")
 
     price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
     print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
@@ -355,7 +357,7 @@ def news_generator(player_investment_converted):
     for i in range(len(player_investment_converted)):
         underscore_counter = underscore_counter + 1
 
-    underscores = "_" * (underscore_counter + 2)
+    underscores = "_" * (underscore_counter + 2) #to make the table formatting dynamic and adaptable to any kind of string-length
     print(f"_______________{underscores}_______________")
 
 
@@ -392,6 +394,8 @@ username = input("Hello there! Please enter your desired username: ")
 
 if username.lower() in player_username_easter_egg_list:
 
+    print("\n> Congratulations! You have just found the game's easter egg!")
+
     player_username_easter_egg_company = player_username_easter_egg_dict.get(username.lower())
     print(f"\nOh hi there {username}! I did not expect to see you today...")
     print(f"Have fun playing this game, hopefully you'll find success here just like you did at {player_username_easter_egg_company}!")
@@ -426,7 +430,7 @@ if ready_for_rules_lower != "yes":
 
 print("> Let's begin")
 
-print("\nFor the best experience, please make sure that you are playing this game in fullscreen.")
+print("\nFor the best experience, please make sure that you are playing this game in your native terminal, in fullscreen.")
 print("This game was coded in Python 3.10, running this game in prior Python versions may result in glitches or bugs that disrupt the gaming experience.")
 
 empty_line()
@@ -449,10 +453,8 @@ continue_or_quit()
 
 ############ LOOP FROM HERE
 
-while pf_balance_cash < 250000 and pf_balance_cash >= 0:
-    print("hi",pf_balance_cash)
+while pf_balance_cash < 250000 and pf_balance_cash >= 0 and pf_price_current >= 0.01:
     if pf_positions_open == 0:
-        print("if")
         start_new_window()
 
         display_stocks()
@@ -496,6 +498,7 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0:
         
         if affordable_counter == 0:
             print("Sorry you have insufficient funds to buy any shares of any listed stock.")
+            time.sleep(0.5)
             print("""
  /$$                                        
 | $$                                        
@@ -570,7 +573,6 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0:
     else:
 
         ######### UPDATES PLAYER VALUES ##########
-        print("else")
         # positions
         pf_positions_open = 1
         pf_positions_asset = player_investment_converted
@@ -604,7 +606,6 @@ Please input your choice: """)
 
         if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
             buy_sell_hold_Choice = "sell"
-            print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
             # balances
             pf_balance_cash = pf_price_current_total_value
             pf_balance_investments = 0 #starting value of investments
@@ -622,9 +623,7 @@ Please input your choice: """)
             pf_price_total_acquisition_cost = 0
 
         elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
-            buy_sell_hold_Choice = "hold"
-            #print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
-            #news_generator(pf_positions_asset)                
+            buy_sell_hold_Choice = "hold"            
 
         else:
             if buy_sell_hold.lower() != "quit":
@@ -654,7 +653,6 @@ Please input your choice: """)
 
                     elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
                         buy_sell_hold_Choice = "hold"
-                        #news_generator(pf_positions_asset)
                         break
 
                     elif buy_sell_hold.lower() == "quit":
@@ -665,14 +663,8 @@ Please input your choice: """)
                 print("See you soon.")
                 quit()
 
-        #if buy_sell_hold_Choice.lower() == "hold":
-        #    print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
-        #    news_generator(pf_positions_asset)     
             
         print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
-
-        #empty_line()
-        #display_player_portfolio()
 
         empty_line()
         continue_or_quit()
@@ -681,26 +673,21 @@ Please input your choice: """)
             news_generator(pf_positions_asset)     
 
 
-        #start_new_window
-
     ####################
     if pf_balance_cash >= 250000:
         print(f"\n Congratulations, {username}, you are the winner.\n")
+        time.sleep(0.5)
         print("""
-                                                   /$$                 /$$                                     /$$           /$$      
-                                                  | $$                |__/                                    |__/          | $$      
-  /$$$$$$  /$$$$$$$  /$$  /$$$$$$  /$$   /$$      | $$$$$$$   /$$$$$$  /$$ /$$$$$$$   /$$$$$$         /$$$$$$  /$$  /$$$$$$$| $$$$$$$ 
- /$$__  $$| $$__  $$|__/ /$$__  $$| $$  | $$      | $$__  $$ /$$__  $$| $$| $$__  $$ /$$__  $$       /$$__  $$| $$ /$$_____/| $$__  $$
-| $$$$$$$$| $$  \ $$ /$$| $$  \ $$| $$  | $$      | $$  \ $$| $$$$$$$$| $$| $$  \ $$| $$  \ $$      | $$  \__/| $$| $$      | $$  \ $$
-| $$_____/| $$  | $$| $$| $$  | $$| $$  | $$      | $$  | $$| $$_____/| $$| $$  | $$| $$  | $$      | $$      | $$| $$      | $$  | $$
-|  $$$$$$$| $$  | $$| $$|  $$$$$$/|  $$$$$$$      | $$$$$$$/|  $$$$$$$| $$| $$  | $$|  $$$$$$$      | $$      | $$|  $$$$$$$| $$  | $$
- \_______/|__/  |__/| $$ \______/  \____  $$      |_______/  \_______/|__/|__/  |__/ \____  $$      |__/      |__/ \_______/|__/  |__/
-               /$$  | $$           /$$  | $$                                         /$$  \ $$                                        
-              |  $$$$$$/          |  $$$$$$/                                        |  $$$$$$/                                        
-               \______/            \______/                                          \______/                                         
+    /$$          /$$      /$$ /$$$$$$ /$$   /$$ /$$   /$$ /$$$$$$$$ /$$$$$$$           /$$   
+  /$$$$$$       | $$  /$ | $$|_  $$_/| $$$ | $$| $$$ | $$| $$_____/| $$__  $$        /$$$$$$ 
+ /$$__  $$      | $$ /$$$| $$  | $$  | $$$$| $$| $$$$| $$| $$      | $$  \ $$       /$$__  $$
+| $$  \__/      | $$/$$ $$ $$  | $$  | $$ $$ $$| $$ $$ $$| $$$$$   | $$$$$$$/      | $$  \__/
+|  $$$$$$       | $$$$_  $$$$  | $$  | $$  $$$$| $$  $$$$| $$__/   | $$__  $$      |  $$$$$$ 
+ \____  $$      | $$$/ \  $$$  | $$  | $$\  $$$| $$\  $$$| $$      | $$  \ $$       \____  $$
+ /$$  \ $$      | $$/   \  $$ /$$$$$$| $$ \  $$| $$ \  $$| $$$$$$$$| $$  | $$       /$$  \ $$
+|  $$$$$$/      |__/     \__/|______/|__/  \__/|__/  \__/|________/|__/  |__/      |  $$$$$$/
+ \_  $$_/                                                                           \_  $$_/ 
+   \__/                                                                               \__/                                
 """)
         quit()
         break
-
-print(f"> So, {username}, you are here.")
-#time.sleep(100)
