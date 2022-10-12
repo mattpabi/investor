@@ -44,10 +44,10 @@ def display_rules():
     print("|    decision-making and risk-taking of financial markets.                                                           |")
     print("|                                                                                                                    |")
     print("|    You will start off with a balance of $100,000 to invest and grow your money through your chosen asset(s).       |")
-    print("|    Your goal is to win the challenge by growing your money to $250,000.                                            |")
+    print("|    Your goal is to win the challenge by growing your money to $1,000,000.                                          |")
     print("|                                                                                                                    |")
     print("|                                                                                                                    |")
-    print("|    *NOTE: $250,000 in your cash balance, NOT in your portfolio value (you MUST SELL to WIN the game).*             |")
+    print("|    *NOTE: $1,000,000 in your cash balance, NOT in your portfolio value (you MUST SELL to WIN the game).*           |")
     print("|                                                                                                                    |")
     print("|                                                                                                                    |")
     print("|    A fully randomised set of economic events will be presented to you, and you will be given the option to         |")
@@ -62,11 +62,12 @@ def display_rules():
 
 # PRESS ANY KEY TO CONTINUE OR TYPE "QUIT" TO QUIT
 def continue_or_quit():
-    CorQ = input("Press any key to continue, or type 'QUIT' to quit the game.")
+    CorQ = input("Press enter or return to continue, or type 'QUIT' to quit the game.")
     CorQ_lower = CorQ.lower()
 
     if CorQ_lower == "quit":
         print("Come back next time when you are ready, see you soon.")
+        time.sleep(5)
         quit()
     
     time.sleep(1)
@@ -142,7 +143,7 @@ def display_stocks():
 stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amzn", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "brk-b", "berkshire hathaway, inc.", "berkshire hathaway", "berkshire", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
 
 
-# STOCK CHOICE INPUT CONVERTER
+# STOCK CHOICE INPUT CONVERTER - uses 'keywords' to lessen errors on user's end
 def player_investment_choice_converter(investment_choice):
 
     investment_choice_lower = investment_choice.lower() 
@@ -180,7 +181,7 @@ def player_investment_choice_converter(investment_choice):
         return investment_choice
 
 
-# PLAYER INVESTMENT OPTION - ASSIGNING TO ASSET CLASS
+# PLAYER INVESTMENT PROFILES - descriptions of companies
 def assign_player_investment_profile(investment_choice):
     
     if investment_choice == "Apple, Inc. (AAPL)":
@@ -256,12 +257,12 @@ def display_player_portfolio():
 
 # GENERATE RANDOM EVENTS AND SCENARIOS
 def random_generator_news(asset):
-    random_Days = random.randint(1, 20)
+    random_Days = random.randint(1, 20) #randomly generates days to determine whether news is breaking news or not
 
     # sudden breaking news
     if random_Days < 6:
         random_Event_good = [f"BREAKING: {asset} has signed a striking deal with tech giant for $1 billion.", f"BREAKING: The CEO of {asset} hinted at a potential merger with world-renowned industry giant.", f"BREAKING: {asset} to discuss stock buyback in next shareholders meeting.", f"BREAKING: 'The end of Quantitative Tightening brings forth Quantitative Easing' says Fed chairman Jerome Powell."]
-        random_Event_bad = [f"BREAKING: The CEO of {asset} is stepping down and may discountinue operations.", f"BREAKING: The databases of {asset} have been hacked: personal details of private investors and/or users have been breached - CEO confirms", f"BREAKING: Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm.", f"BREAKING: Fed chairman Jerome Powell announces a 100bps interest rate hike, suprising forecasters by 25bps."]
+        random_Event_bad = [f"BREAKING: The current CEO of {asset} is stepping down and may discountinue operations.", f"BREAKING: The databases of {asset} have been hacked: personal details of private investors and/or users have been breached - CEO confirms", f"BREAKING: Financial data provided by {asset} has been proven to be false, including Financial Statements and Balance Sheets, company insiders confirm.", f"BREAKING: Fed chairman Jerome Powell announces a 100bps interest rate hike, suprising forecasters by 25bps."]
  
         random_Event_sentiment_pick = random.randint(0, 1)
  
@@ -426,6 +427,7 @@ if ready_for_rules_lower != "yes":
     print("You are inexperienced and will get rekt.")
     print("Come back next time when you are ready, see you soon.")
     empty_line()
+    time.sleep(10)
     quit()
 
 print("> Let's begin")
@@ -453,7 +455,7 @@ continue_or_quit()
 
 ############ LOOP FROM HERE
 
-while pf_balance_cash < 250000 and pf_balance_cash >= 0 and pf_price_current >= 0.01:
+while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
     if pf_positions_open == 0:
         start_new_window()
 
@@ -475,6 +477,7 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0 and pf_price_current >= 
         else:
             if player_investment.lower() != "quit":
 
+                # loop in case the user's first answer is invalid
                 while player_investment.lower() != "quit":
                     player_investment = input("Please input a valid stock ticker/name: ")
 
@@ -488,7 +491,7 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0 and pf_price_current >= 
             elif player_investment.lower() == "quit":
                 print("Come back next time when you are ready, see you soon.")
         
-
+        # checks if player can afford any stocks, quit the game if they can't
         affordable_counter = 0
         for share_price in stocks_dict:
             if float(pf_balance_cash) >= float(stocks_dict[share_price]):
@@ -509,6 +512,7 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0 and pf_price_current >= 
 | $$|  $$$$$$/ /$$$$$$$/|  $$$$$$$| $$      
 |__/ \______/ |_______/  \_______/|__/      
 """)
+            time.sleep(10)
             quit()
 
 
@@ -627,7 +631,8 @@ Please input your choice: """)
 
         else:
             if buy_sell_hold.lower() != "quit":
-
+                
+                # while loop to keep prompting user for valid input, in the event first answer is invalid
                 while buy_sell_hold.lower() != "quit":
 
                     buy_sell_hold = input("Please input a valid choice: ")
@@ -674,8 +679,9 @@ Please input your choice: """)
 
 
     ####################
-    if pf_balance_cash >= 250000:
-        print(f"\n Congratulations, {username}, you are the winner.\n")
+    if pf_balance_cash >= 1000000:
+        clear_terminal()
+        print(f"\nCongratulations, {username}, you are the winner.\n")
         time.sleep(0.5)
         print("""
     /$$          /$$      /$$ /$$$$$$ /$$   /$$ /$$   /$$ /$$$$$$$$ /$$$$$$$           /$$   
@@ -689,5 +695,14 @@ Please input your choice: """)
  \_  $$_/                                                                           \_  $$_/ 
    \__/                                                                               \__/                                
 """)
+        time.sleep(0.5)
+        print("""
+Have fun being rich :), hope to see you soon
+- anon
+""")
+        time.sleep(0.5)
+        display_player_portfolio()
+        time.sleep(1.5)
+        continue_or_quit()
         quit()
         break
