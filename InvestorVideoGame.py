@@ -3,6 +3,8 @@ import time
 import random
 from sys import platform
 
+
+
 ########## DEFINING FUNCTIONS ##########
 
 # CLEAR USER TERMINAL AFTER CHECKING THEIR OPERATING SYSTEM
@@ -43,7 +45,7 @@ def display_rules():
     print("|    A fully randomised set of economic events will be presented to you, and you will be given the option to buy, hold, or sell.                                      |")
     print("|    In order to win the game, you must search for clues in the news, read between the lines, and play some hunches.                                                  |")
     print("|                                                                                                                                                                     |")
-    print("|    The game will end once you have beat the challenge, or run out of money.                                                                                         |")
+    print("|    The game will end once you have beat the challenge, or run out of money. You may type QUIT at any time to leave the game.                                        |")
     print("|                                                                                                                                                                     |")
     print("+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+")
 
@@ -90,70 +92,85 @@ def display_stocks():
     print("+-----------------------------------------------------------------------+")
 
 
-# PLAYER INVESTMENT OPTION - ASSIGNING TO ASSET CLASS
-
-def assign_player_investment(investment_choice):
-
-    investment_choice_lower = investment_choice.lower()
+# STOCK KEYWORDS (CHECK IF INPUT IS IN THIS LIST)
+stocks_keywords_list = ["aapl", "apple, inc.", "apple", "msft", "microsoft corp.", "microsoft", "googl", "alphabet", "alphabet, inc.", "google", "amz", "amazon.com", "amazon.com, inc.", "amazon", "tsla", "tesla, inc.", "tesla", "bkr-b", "berkshire hathaway, inc.", "berkshire hathaway", "meta", "meta platforms, inc.", "meta platforms", "meta", "nflx", "netflix, inc.", "netflix"]
 
 
-    if investment_choice_lower == " ":
+# STOCK CHOICE INPUT CONVERTER
+def player_investment_choice_converter(investment_choice):
 
-        investment_choice = "N/A"
-        investment_choice_profile = "N/A"
+    investment_choice_lower = investment_choice.lower() 
+
+    if investment_choice_lower == "aapl" or investment_choice_lower == "apple, inc." or investment_choice_lower == "apple":
+        investment_choice = "Apple, Inc. (AAPL)"
+        return investment_choice
     
-
-    elif investment_choice_lower == "aapl" or investment_choice_lower == "apple, inc." or investment_choice_lower == "apple":
-
-        investment_choice_profile = "Apple, Inc. engages in the design, manufacture, and sale of smartphones, personal computers, tablets, wearables and accessories, and other varieties of related services."
-
-
     elif investment_choice_lower == "msft" or investment_choice_lower == "microsoft corp." or investment_choice_lower == "microsoft":
-
-        investment_choice_profile = "Microsoft Corp. engages in the development and support of software, services, devices, and solutions."
-
-
+        investment_choice = "Microsoft Corp. (MSFT)"
+        return investment_choice
+    
     elif investment_choice_lower == "googl" or investment_choice_lower == "alphabet" or investment_choice_lower == "alphabet, inc." or investment_choice_lower == "google":
-
-        investment_choice_profile = "Alphabet, Inc. is a holding company, which engages in the business of acquisition and operation of different companies, such as its main internet products: ads, Android, Chrome, hardware, Google Cloud, Google Maps, Google Play, Search, and YouTube."
-
+        investment_choice = "Alphabet, Inc. (GOOGL)"
+        return investment_choice
     
     elif investment_choice_lower == "amz" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
-
-        investment_choice_profile = "Amazon.com, Inc. is a multinational technology company, which engages in the provision of online retail shopping services."
-
+        investment_choice = "Amazon.com, Inc. (AMZ)"
+        return investment_choice
 
     elif investment_choice_lower == "tsla" or investment_choice_lower == "tesla, inc." or investment_choice_lower == "tesla":
-        
-        investment_choice_profile = "Tesla, Inc. engages in the design, development, manufacture, and sale of fully electric vehicles and energy generation and storage systems."
-    
+        investment_choice_profile = "Tesla, Inc. (TSLA)"
+        return investment_choice
 
     elif investment_choice_lower == "bkr-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire hathaway":
-
-        investment_choice_profile = "Berkshire Hathaway, Inc. engages in the provision of property and casualty insurance and reinsurance, utilities and energy, freight rail transportation, finance, manufacturing, and retailing services."
-    
+        investment_choice_profile = "Berkshire Hathaway (BKR-B)"
+        return investment_choice
 
     elif investment_choice_lower == "meta" or investment_choice_lower == "meta platforms, inc." or investment_choice_lower == "meta platforms" or investment_choice_lower == "meta":
-        
-    
+        investment_choice_profile = "Meta Platforms, Inc. (META)"
+        return investment_choice
+
     elif investment_choice_lower == "nflx" or investment_choice_lower == "netflix, inc." or investment_choice_lower == "netflix":
-   
+        investment_choice_profile = "Netflix, Inc. (NFLX)"
+        return investment_choice
 
 
-    return investment_choice
+# PLAYER INVESTMENT OPTION - ASSIGNING TO ASSET CLASS
+def assign_player_investment_profile(investment_choice):
 
-
-# DISPLAY PLAYER INVESTMENT ASSET PROFILE
-def display_player_investment_asset_profile():
-    asset = assign_player_investment()
+    investment_choice_lower = investment_choice.lower() 
     
-    if asset == "Meta Platforms, Inc. (META)":
+    if investment_choice_lower == "aapl" or investment_choice_lower == "apple, inc." or investment_choice_lower == "apple":
+        investment_choice_profile = "Apple, Inc. engages in the design, manufacture, and sale of smartphones, personal computers, tablets, wearables and accessories, and other varieties of related services."
+        return investment_choice_profile
+
+    elif investment_choice_lower == "msft" or investment_choice_lower == "microsoft corp." or investment_choice_lower == "microsoft":
+        investment_choice_profile = "Microsoft Corp. engages in the development and support of software, services, devices, and solutions."
+        return investment_choice_profile
+
+    elif investment_choice_lower == "googl" or investment_choice_lower == "alphabet" or investment_choice_lower == "alphabet, inc." or investment_choice_lower == "google":
+        investment_choice_profile = "Alphabet, Inc. is a holding company, which engages in the business of acquisition and operation of different companies, such as its main internet products: ads, Android, Chrome, hardware, Google Cloud, Google Maps, Google Play, Search, and YouTube."
+        return investment_choice_profile
+    
+    elif investment_choice_lower == "amz" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
+        investment_choice_profile = "Amazon.com, Inc. is a multinational technology company, which engages in the provision of online retail shopping services."
+        return investment_choice_profile
+
+    elif investment_choice_lower == "tsla" or investment_choice_lower == "tesla, inc." or investment_choice_lower == "tesla":
+        investment_choice_profile = "Tesla, Inc. engages in the design, development, manufacture, and sale of fully electric vehicles and energy generation and storage systems."
+        return investment_choice_profile
+
+    elif investment_choice_lower == "bkr-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire hathaway":
+        investment_choice_profile = "Berkshire Hathaway, Inc. engages in the provision of property and casualty insurance and reinsurance, utilities and energy, freight rail transportation, finance, manufacturing, and retailing services."
+        return investment_choice_profile
+
+    elif investment_choice_lower == "meta" or investment_choice_lower == "meta platforms, inc." or investment_choice_lower == "meta platforms" or investment_choice_lower == "meta":
         investment_choice_profile = "Meta Platforms, Inc., engages in the development of social media applications. It builds technology that helps people connect, find communities, and grow businesses."
+        return investment_choice_profile
 
-    elif asset == "Netflix, Inc. (NFLX)":
+    elif investment_choice_lower == "nflx" or investment_choice_lower == "netflix, inc." or investment_choice_lower == "netflix":
         investment_choice_profile = "Netflix, Inc. operates as a streaming entertainment service company. The firm provides subscription service streaming movies and television episodes over the internet."
+        return investment_choice_profile
 
-    return investment_choice_profile
 
 # DISPLAY PLAYER PORTFOLIO
 def display_player_portfolio():
@@ -171,6 +188,7 @@ def display_player_portfolio():
     print(f"   ($) Current portfolio value")
     print(f"   ($) Profit / Loss \n")
     print("__________________________________________________________________________")
+
 
 
 ########## INTRO ##########
@@ -214,9 +232,12 @@ if ready_for_rules_lower != "yes":
 print("> Let's begin")
 
 print("\nFor the best experience, please make sure that you are playing this game in fullscreen.")
+print("This game was coded in Python 3.10, running this game in prior Python versions may result in glitches or bugs that disrupt the gaming experience.")
 
 empty_line()
 continue_or_quit()
+
+
 
 ########## DISPLAY RULES ##########
 
@@ -226,6 +247,8 @@ display_rules()
 
 empty_line()
 continue_or_quit()
+
+
 
 ########## DISPLLAY INVESTMENT OPTIONS ##########
 
@@ -238,29 +261,30 @@ display_stocks()
 empty_line()
 player_investment = input("Please input the your desired stock to invest in: ")
 
+if player_investment.lower() in stocks_keywords_list:
 
-# RETURN THE STOCK: NAME & TICKER, DESCRIPTION, PRICE from the function
-# calls the function to assign the player's choice
-assigned_investment, assigned_desc = assign_player_investment(player_investment)
+    player_investment_converted = player_investment_choice_converter(player_investment) # turns player input into code readble string (e.g. "aapl" -> "Apple, Inc. (AAPL)")
 
-# returns value of dictionary (returns the buying price of player)
-assigned_buyPrice = assigned_investment.get(player_investment)
-print(assigned_buyPrice) #prints none
+    # RETURN THE STOCK: NAME & TICKER, DESCRIPTION, PRICE from the function
+    # calls the function to display the investment profile of player's chosen stock
+    assigned_desc = assign_player_investment_profile(player_investment)
 
-# list out keys and values separately
-buyPrice_list = list(assigned_investment.values())
-buyName_list = list(assigned_investment.keys())
+    # returns value of dictionary (returns the buying price of player)
+    assigned_buyPrice = stocks_dict.get(player_investment_converted)
 
-# assigned_name = assigned_investment.values().index(assigned_buyPrice)
-assigned_name = buyPrice_list.index(assigned_buyPrice)
+    # list out keys and values separately
+    # buyName_list = list(stocks_dict.keys()) # Keys = Name
+    buyPrice_list = list(stocks_dict.values()) # Values = Price
 
+    # assigned_name = buyName_list.index(assigned_buyPrice)
 
-# CALCULATIONS FOR THE STOCK PRICE
-bought_shares = round(float(balance_cash / assigned_buyPrice),0)
+    # CALCULATIONS FOR THE STOCK PRICE
+    bought_shares = balance_cash / assigned_buyPrice
+
 
 empty_line()
 
-print(f"You have bought {bought_shares} shares of {assigned_name} at ${assigned_buyPrice}.")
+print(f"You have bought {bought_shares} shares of {player_investment_converted} at ${assigned_buyPrice}.")
 print(assigned_desc)
 
 time.sleep(10)
