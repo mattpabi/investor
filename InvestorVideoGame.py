@@ -80,37 +80,28 @@ stocks_dict = {
     "Netflix, Inc. (NFLX)" : "242.70"
 }
 
-# STOCK PRICES (FOR EASE OF USE WHEN PRINTING)
-stockPrice_apple = stocks_dict["Apple, Inc. (AAPL)"]
-stockPrice_microsoft = stocks_dict["Microsoft Corp. (MSFT)"]
-stockPrice_alphabet = stocks_dict[ "Alphabet, Inc. (GOOGL)"]
-stockPrice_amazon = stocks_dict["Amazon.com, Inc. (AMZ)"]
-stockPrice_tesla = stocks_dict["Tesla, Inc. (TSLA)"]
-stockPrice_berkshire = stocks_dict["Berkshire Hathaway (BRK-B)"]
-stockPrice_meta = stocks_dict["Meta Platforms, Inc. (META)"]
-stockPrice_netflix = stocks_dict["Netflix, Inc. (NFLX)"]
 
 # TO MAINTAIN TABLE MARGINS, THIS FUNCTION WILL COUNT THE CHARACTERS IN THE PRICE AND ADD SPACES ACCORDINGLY
 def investment_options_space_counter(stock):
-    if len(stock) == 10:
+    if len(str(stock)) == 10:
         space = r""
     
-    elif len(stock) == 9:
+    elif len(str(stock)) == 9:
         space = r" "
     
-    elif len(stock) == 8:
+    elif len(str(stock)) == 8:
         space = r"  "
     
-    elif len(stock) == 7:
+    elif len(str(stock)) == 7:
         space = r"   "
     
-    elif len(stock) == 6:
+    elif len(str(stock)) == 6:
         space = r"    "
 
-    elif len(stock) == 5:
+    elif len(str(stock)) == 5:
         space = r"     "
     
-    elif len(stock) == 4:
+    elif len(str(stock)) == 4:
         space = r"      "
     
     return space
@@ -118,6 +109,16 @@ def investment_options_space_counter(stock):
 
 # DISPLAY INVESTMENT OPTIONS
 def display_stocks():
+    # STOCK PRICES (FOR EASE OF USE WHEN PRINTING)
+    stockPrice_apple = float(stocks_dict.get("Apple, Inc. (AAPL)"))
+    stockPrice_microsoft = float(stocks_dict.get("Microsoft Corp. (MSFT)"))
+    stockPrice_alphabet = float(stocks_dict.get("Alphabet, Inc. (GOOGL)"))
+    stockPrice_amazon = float(stocks_dict.get("Amazon.com, Inc. (AMZ)"))
+    stockPrice_tesla = float(stocks_dict.get("Tesla, Inc. (TSLA)"))
+    stockPrice_berkshire = float(stocks_dict.get("Berkshire Hathaway (BRK-B)"))
+    stockPrice_meta = float(stocks_dict.get("Meta Platforms, Inc. (META)"))
+    stockPrice_netflix = float(stocks_dict.get("Netflix, Inc. (NFLX)"))
+    
     print(f"f-------------------------  INVESTMENT OPTIONS  ------------------------+")
     print(f"|                                                                       |")
     print(f"+--- Ticker ----- Company ---------------------------------- Price -----+")
@@ -211,7 +212,7 @@ def assign_player_investment_profile(investment_choice):
         return investment_choice_profile
 
 
-# INITIALISE PORTFOLIO DASHBOARD VARIABLES
+######## INITIALISE PORTFOLIO DASHBOARD VARIABLES
 
 # positions
 pf_positions_open = 0
@@ -387,242 +388,251 @@ continue_or_quit()
 
 ########## DISPLLAY INVESTMENT OPTIONS ##########
 
-start_new_window()
+############ LOOP FROM HERE
 
-display_stocks()
-
-# DISPLAY PLAYER PORTFOLIO
-empty_line()
-
-display_player_portfolio()
-
-# INPUT INVESTMENT
-empty_line()
-player_investment = input("Please input the your desired stock to invest in: ")
+while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
 
 
-if player_investment.lower() in stocks_keywords_list:
-    player_investment_converted = player_investment_choice_converter(player_investment)
+    start_new_window()
 
-else:
-    if player_investment.lower() != "quit":
+    display_stocks()
 
-        while player_investment.lower() != "quit":
-            player_investment = input("Please input a valid stock ticker/name: ")
+    # DISPLAY PLAYER PORTFOLIO
+    empty_line()
 
-            if player_investment.lower() in stocks_keywords_list:
-                player_investment_converted = player_investment_choice_converter(player_investment)
-                break
+    display_player_portfolio()
 
-            elif player_investment.lower() == "quit":
-                print("Come back next time when you are ready, see you soon.")
-    
-    elif player_investment.lower() == "quit":
-        print("Come back next time when you are ready, see you soon.")
-
-# PRINT ONCE INVESTMENT INPUT IS VALID
-print("> Processing transaction...")
-time.sleep(1)
-print("> Success!")
-time.sleep(1)
-
-# RETRIEVE STOCK PRICE
-assigned_buyPrice = float(stocks_dict.get(player_investment_converted))
-
-# CALCULATE SHARES BOUGHT
-bought_shares = float(pf_balance_cash) / float(assigned_buyPrice)
-
-# RETRIEVE STOCK DESCRIPTION
-assigned_desc = assign_player_investment_profile(player_investment_converted)
-
-empty_line()
-
-print(f"You have bought {int(bought_shares)} shares of {player_investment_converted} at ${format(assigned_buyPrice, '.2f')}.")
-print(assigned_desc)
-
-time.sleep(1)
+    # INPUT INVESTMENT
+    empty_line()
+    player_investment = input("Please input the your desired stock to invest in: ")
 
 
+    if player_investment.lower() in stocks_keywords_list:
+        player_investment_converted = player_investment_choice_converter(player_investment)
 
-########## UPDATES PLAYER VALUES ##########
+    else:
+        if player_investment.lower() != "quit":
 
-# positions
-pf_positions_open = 1
-pf_positions_asset = player_investment_converted
-pf_postions_shares = bought_shares
+            while player_investment.lower() != "quit":
+                player_investment = input("Please input a valid stock ticker/name: ")
 
-# prices and values
-pf_price_current = assigned_buyPrice
-pf_price_current_total_value = assigned_buyPrice * pf_postions_shares
-pf_price_when_bought = assigned_buyPrice
-pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
+                if player_investment.lower() in stocks_keywords_list:
+                    player_investment_converted = player_investment_choice_converter(player_investment)
+                    break
 
-# balances
-pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
-pf_balance_investments = pf_price_current_total_value # value of investments
-pf_balance_investments_pnl = pf_price_total_acquisition_cost -  pf_price_current_total_value # + or - of investments
+                elif player_investment.lower() == "quit":
+                    print("Come back next time when you are ready, see you soon.")
+        
+        elif player_investment.lower() == "quit":
+            print("Come back next time when you are ready, see you soon.")
 
+    # PRINT ONCE INVESTMENT INPUT IS VALID
+    print("> Processing transaction...")
+    time.sleep(1)
+    print("> Success!")
+    time.sleep(1)
 
-empty_line()
-display_player_portfolio()
+    # RETRIEVE STOCK PRICE
+    assigned_buyPrice = float(stocks_dict.get(player_investment_converted))
 
+    # CALCULATE SHARES BOUGHT
+    bought_shares = float(pf_balance_cash) / float(assigned_buyPrice)
 
-empty_line()
-continue_or_quit()
+    # RETRIEVE STOCK DESCRIPTION
+    assigned_desc = assign_player_investment_profile(player_investment_converted)
 
-start_new_window()
+    empty_line()
 
-print("""
-                                                   /$$                                 /$$ /$$ /$$                              
-                                                  | $$                                | $$| $$|__/                              
- /$$$$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$$      | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$| $$ /$$ /$$$$$$$   /$$$$$$   /$$$$$$$
-| $$__  $$ /$$__  $$| $$ | $$ | $$ /$$_____/      | $$__  $$ /$$__  $$ |____  $$ /$$__  $$| $$| $$| $$__  $$ /$$__  $$ /$$_____/
-| $$  \ $$| $$$$$$$$| $$ | $$ | $$|  $$$$$$       | $$  \ $$| $$$$$$$$  /$$$$$$$| $$  | $$| $$| $$| $$  \ $$| $$$$$$$$|  $$$$$$ 
-| $$  | $$| $$_____/| $$ | $$ | $$ \____  $$      | $$  | $$| $$_____/ /$$__  $$| $$  | $$| $$| $$| $$  | $$| $$_____/ \____  $$
-| $$  | $$|  $$$$$$$|  $$$$$/$$$$/ /$$$$$$$/      | $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$| $$| $$| $$  | $$|  $$$$$$$ /$$$$$$$/
-|__/  |__/ \_______/ \_____/\___/ |_______/       |__/  |__/ \_______/ \_______/ \_______/|__/|__/|__/  |__/ \_______/|_______/ 
-""")
+    print(f"You have bought {int(bought_shares)} shares of {player_investment_converted} at ${format(assigned_buyPrice, '.2f')}.")
+    print(assigned_desc)
 
-time.sleep(1)
-
-empty_line()
-
-news, sentiment = random_generator_news(player_investment_converted)
-print(f"News        {news}")
-print(f"Sentiment   {sentiment.title()}")
-
-time.sleep(1)
-
-empty_line()
-
-new_asset_price, percentage_print = random_generator_prices(float(stocks_dict.get(player_investment_converted)), sentiment)
-
-print(f"_______________ {player_investment_converted} _______________\n")
-
-print(f"($) Buy price                           {assigned_buyPrice}")
-print(f"($) Current price                       {new_asset_price}")
-print(f"(%) Percentage move                     {percentage_print}")
-
-price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
-print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
-
-underscore_counter = 0
-for i in range(len(player_investment_converted)):
-    underscore_counter = underscore_counter + 1
-
-underscores = "_" * (underscore_counter + 2)
-print(f"_______________{underscores}_______________")
+    time.sleep(1)
 
 
-########## UPDATES STOCK PRICE ##########
 
-stocks_dict[player_investment_converted] = new_asset_price
-
-
-######### UPDATES PLAYER VALUES ##########
-
-# positions
-pf_positions_open = 1
-pf_positions_asset = player_investment_converted
-pf_postions_shares = bought_shares
-
-# prices and values
-pf_price_current = stocks_dict[player_investment_converted]
-pf_price_current_total_value = pf_price_current * pf_postions_shares
-pf_price_when_bought = assigned_buyPrice
-pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
-
-# balances
-pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
-pf_balance_investments = pf_price_current_total_value # value of investments
-pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
-
-empty_line()
-empty_line()
-display_player_portfolio()
-
-empty_line()
-
-buy_sell_hold = input("""
-Considering recent news, would you like to:
-(a) Sell your shares, exiting your position
-(b) Hold your position, take no action
-
-*You may not buy more shares as you have a cash balance of $0.00
-
-Please input your choice: """)
-
-if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
-    buy_sell_hold_Choice = "sell"
-    # balances
-    pf_balance_cash = pf_price_current_total_value
-    pf_balance_investments = 0 #starting value of investments
-    pf_balance_investments_pnl = 0 #starting + or - of investments
+    ########## UPDATES PLAYER VALUES ##########
 
     # positions
-    pf_positions_open = 0
-    pf_positions_asset = "N/A"
-    pf_postions_shares = 0
+    pf_positions_open = 1
+    pf_positions_asset = player_investment_converted
+    pf_postions_shares = bought_shares
 
     # prices and values
-    pf_price_current = 0
-    pf_price_current_total_value = 0
-    pf_price_when_bought = 0
-    pf_price_total_acquisition_cost = 0
+    pf_price_current = assigned_buyPrice
+    pf_price_current_total_value = assigned_buyPrice * pf_postions_shares
+    pf_price_when_bought = assigned_buyPrice
+    pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
 
-elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
-    buy_sell_hold_Choice = "hold"
-
-else:
-    if buy_sell_hold.lower() != "quit":
-
-        while buy_sell_hold.lower() != "quit":
-
-            buy_sell_hold = input("Please input a valid choice: ")
-            
-            if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
-                buy_sell_hold_Choice = "sell"
-                # balances
-                pf_balance_cash = pf_price_current_total_value
-                pf_balance_investments = 0 #starting value of investments
-                pf_balance_investments_pnl = 0 #starting + or - of investments
-
-                # positions
-                pf_positions_open = 0
-                pf_positions_asset = "N/A"
-                pf_postions_shares = 0
-
-                # prices and values
-                pf_price_current = 0
-                pf_price_current_total_value = 0
-                pf_price_when_bought = 0
-                pf_price_total_acquisition_cost = 0
-                break
-
-            elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
-                buy_sell_hold_Choice = "hold"
-                break
-
-            elif buy_sell_hold.lower() == "quit":
-                print("See you soon.")
-                quit()
-
-    elif buy_sell_hold.lower() == "quit":
-        print("See you soon.")
-        quit()
-
-print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
-
-empty_line()
-display_player_portfolio()
-
-empty_line()
-continue_or_quit()
-
-start_new_window
-
-####################
+    # balances
+    pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+    pf_balance_investments = pf_price_current_total_value # value of investments
+    pf_balance_investments_pnl = pf_price_total_acquisition_cost -  pf_price_current_total_value # + or - of investments
 
 
+    empty_line()
+    display_player_portfolio()
 
-time.sleep(100)
+
+    empty_line()
+    continue_or_quit()
+
+    start_new_window()
+
+    print("""
+                                                    /$$                                 /$$ /$$ /$$                              
+                                                    | $$                                | $$| $$|__/                              
+    /$$$$$$$   /$$$$$$  /$$  /$$  /$$  /$$$$$$$      | $$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$$| $$ /$$ /$$$$$$$   /$$$$$$   /$$$$$$$
+    | $$__  $$ /$$__  $$| $$ | $$ | $$ /$$_____/      | $$__  $$ /$$__  $$ |____  $$ /$$__  $$| $$| $$| $$__  $$ /$$__  $$ /$$_____/
+    | $$  \ $$| $$$$$$$$| $$ | $$ | $$|  $$$$$$       | $$  \ $$| $$$$$$$$  /$$$$$$$| $$  | $$| $$| $$| $$  \ $$| $$$$$$$$|  $$$$$$ 
+    | $$  | $$| $$_____/| $$ | $$ | $$ \____  $$      | $$  | $$| $$_____/ /$$__  $$| $$  | $$| $$| $$| $$  | $$| $$_____/ \____  $$
+    | $$  | $$|  $$$$$$$|  $$$$$/$$$$/ /$$$$$$$/      | $$  | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$| $$| $$| $$  | $$|  $$$$$$$ /$$$$$$$/
+    |__/  |__/ \_______/ \_____/\___/ |_______/       |__/  |__/ \_______/ \_______/ \_______/|__/|__/|__/  |__/ \_______/|_______/ 
+    """)
+
+    time.sleep(1)
+
+    empty_line()
+
+    news, sentiment = random_generator_news(player_investment_converted)
+    print(f"News        {news}")
+    print(f"Sentiment   {sentiment.title()}")
+
+    time.sleep(1)
+
+    empty_line()
+
+    new_asset_price, percentage_print = random_generator_prices(float(stocks_dict.get(player_investment_converted)), sentiment)
+
+    print(f"_______________ {player_investment_converted} _______________\n")
+
+    print(f"($) Buy price                           {assigned_buyPrice}")
+    print(f"($) Current price                       {new_asset_price}")
+    print(f"(%) Percentage move                     {percentage_print}")
+
+    price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
+    print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
+
+    underscore_counter = 0
+    for i in range(len(player_investment_converted)):
+        underscore_counter = underscore_counter + 1
+
+    underscores = "_" * (underscore_counter + 2)
+    print(f"_______________{underscores}_______________")
+
+
+    ########## UPDATES STOCK PRICE ##########
+
+    #stocks_dict[player_investment_converted] = new_asset_price
+    stocks_dict.update({player_investment_converted:new_asset_price})
+
+
+
+    ######### UPDATES PLAYER VALUES ##########
+
+    # positions
+    pf_positions_open = 1
+    pf_positions_asset = player_investment_converted
+    pf_postions_shares = bought_shares
+
+    # prices and values
+    pf_price_current = float(stocks_dict.get(player_investment_converted))
+    pf_price_current_total_value = pf_price_current * pf_postions_shares
+    pf_price_when_bought = assigned_buyPrice
+    pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
+
+    # balances
+    pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+    pf_balance_investments = pf_price_current_total_value # value of investments
+    pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
+
+    empty_line()
+    empty_line()
+    display_player_portfolio()
+
+    empty_line()
+
+    buy_sell_hold = input("""
+    Considering recent news, would you like to:
+    (a) Sell your shares, exiting your position
+    (b) Hold your position, take no action
+
+    *You may not buy more shares as you have a cash balance of $0.00
+
+    Please input your choice: """)
+
+    if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+        buy_sell_hold_Choice = "sell"
+        # balances
+        pf_balance_cash = pf_price_current_total_value
+        pf_balance_investments = 0 #starting value of investments
+        pf_balance_investments_pnl = 0 #starting + or - of investments
+
+        # positions
+        pf_positions_open = 0
+        pf_positions_asset = "N/A"
+        pf_postions_shares = 0
+
+        # prices and values
+        pf_price_current = 0
+        pf_price_current_total_value = 0
+        pf_price_when_bought = 0
+        pf_price_total_acquisition_cost = 0
+
+    elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+        buy_sell_hold_Choice = "hold"
+
+    else:
+        if buy_sell_hold.lower() != "quit":
+
+            while buy_sell_hold.lower() != "quit":
+
+                buy_sell_hold = input("Please input a valid choice: ")
+                
+                if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
+                    buy_sell_hold_Choice = "sell"
+                    # balances
+                    pf_balance_cash = pf_price_current_total_value
+                    pf_balance_investments = 0 #starting value of investments
+                    pf_balance_investments_pnl = 0 #starting + or - of investments
+
+                    # positions
+                    pf_positions_open = 0
+                    pf_positions_asset = "N/A"
+                    pf_postions_shares = 0
+
+                    # prices and values
+                    pf_price_current = 0
+                    pf_price_current_total_value = 0
+                    pf_price_when_bought = 0
+                    pf_price_total_acquisition_cost = 0
+                    #break
+
+                elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
+                    buy_sell_hold_Choice = "hold"
+                    #break
+
+                elif buy_sell_hold.lower() == "quit":
+                    print("See you soon.")
+                    quit()
+
+        elif buy_sell_hold.lower() == "quit":
+            print("See you soon.")
+            quit()
+
+    print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
+
+    empty_line()
+    display_player_portfolio()
+
+    empty_line()
+    continue_or_quit()
+
+    start_new_window
+
+    ####################
+    if pf_balance_cash >= 1000000:
+        print(f"> So, {username}, you are the winner.")
+        break
+
+print(f"> So, {username}, you are here.")
+#time.sleep(100)
