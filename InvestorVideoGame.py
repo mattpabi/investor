@@ -80,22 +80,57 @@ stocks_dict = {
     "Netflix, Inc. (NFLX)" : "242.70"
 }
 
+# STOCK PRICES (FOR EASE OF USE WHEN PRINTING)
+stockPrice_apple = stocks_dict["Apple, Inc. (AAPL)"]
+stockPrice_microsoft = stocks_dict["Microsoft Corp. (MSFT)"]
+stockPrice_alphabet = stocks_dict[ "Alphabet, Inc. (GOOGL)"]
+stockPrice_amazon = stocks_dict["Amazon.com, Inc. (AMZ)"]
+stockPrice_tesla = stocks_dict["Tesla, Inc. (TSLA)"]
+stockPrice_berkshire = stocks_dict["Berkshire Hathaway (BRK-B)"]
+stockPrice_meta = stocks_dict["Meta Platforms, Inc. (META)"]
+stockPrice_netflix = stocks_dict["Netflix, Inc. (NFLX)"]
+
+# TO MAINTAIN TABLE MARGINS, THIS FUNCTION WILL COUNT THE CHARACTERS IN THE PRICE AND ADD SPACES ACCORDINGLY
+def investment_options_space_counter(stock):
+    if len(stock) == 10:
+        space = r""
+    
+    elif len(stock) == 9:
+        space = r" "
+    
+    elif len(stock) == 8:
+        space = r"  "
+    
+    elif len(stock) == 7:
+        space = r"   "
+    
+    elif len(stock) == 6:
+        space = r"    "
+
+    elif len(stock) == 5:
+        space = r"     "
+    
+    elif len(stock) == 4:
+        space = r"      "
+    
+    return space
+
 
 # DISPLAY INVESTMENT OPTIONS
 def display_stocks():
-    print("+-------------------------  INVESTMENT OPTIONS  ------------------------+")
-    print("|                                                                       |")
-    print("+--- Ticker ----- Company ---------------------------------- Price -----+")
-    print("|    AAPL         Apple, Inc.                                $168.49    |")
-    print("|    MSFT         Microsoft Corp.                            $287.02    |")
-    print("|    GOOGL        Alphabet, Inc. (Google)                    $118.84    |")
-    print("|    AMZ          Amazon.com, Inc.                           $140.64    |")
-    print("|    TSLA         Tesla, Inc.                                $859.89    |")
-    print("|    BRK-B        Berkshire Hathaway, Inc.                   $296.47    |")
-    print("|    META         Meta Platforms, Inc. (FKA Facebook)        $177.49    |")
-    print("|    NFLX         Netflix, Inc.                              $242.70    |")
-    print("|                                                                       |")
-    print("+-----------------------------------------------------------------------+")
+    print(f"f-------------------------  INVESTMENT OPTIONS  ------------------------+")
+    print(f"|                                                                       |")
+    print(f"+--- Ticker ----- Company ---------------------------------- Price -----+")
+    print(f"|    AAPL         Apple, Inc.                                ${stockPrice_apple}{investment_options_space_counter(stockPrice_apple)}|")
+    print(f"|    MSFT         Microsoft Corp.                            ${stockPrice_microsoft}{investment_options_space_counter(stockPrice_microsoft)}|")
+    print(f"|    GOOGL        Alphabet, Inc. (Google)                    ${stockPrice_alphabet}{investment_options_space_counter(stockPrice_alphabet)}|")
+    print(f"|    AMZ          Amazon.com, Inc.                           ${stockPrice_amazon}{investment_options_space_counter(stockPrice_amazon)}|")
+    print(f"|    TSLA         Tesla, Inc.                                ${stockPrice_tesla}{investment_options_space_counter(stockPrice_tesla)}|")
+    print(f"|    BRK-B        Berkshire Hathaway, Inc.                   ${stockPrice_berkshire}{investment_options_space_counter(stockPrice_berkshire)}|")
+    print(f"|    META         Meta Platforms, Inc. (FKA Facebook)        ${stockPrice_meta}{investment_options_space_counter(stockPrice_meta)}|")
+    print(f"|    NFLX         Netflix, Inc.                              ${stockPrice_netflix}{investment_options_space_counter(stockPrice_netflix)}|")
+    print(f"|                                                                       |")  
+    print(f"+-----------------------------------------------------------------------+")
 
 
 # STOCK KEYWORDS (CHECK IF INPUT IS IN THIS LIST)
@@ -427,8 +462,10 @@ pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
 pf_balance_investments = pf_price_current_total_value # value of investments
 pf_balance_investments_pnl = pf_price_total_acquisition_cost -  pf_price_current_total_value # + or - of investments
 
+
 empty_line()
 display_player_portfolio()
+
 
 empty_line()
 continue_or_quit()
@@ -458,7 +495,7 @@ time.sleep(1)
 
 empty_line()
 
-new_asset_price, percentage_print = random_generator_prices(assigned_buyPrice, sentiment)
+new_asset_price, percentage_print = random_generator_prices(float(stocks_dict.get(player_investment_converted)), sentiment)
 
 print(f"_______________ {player_investment_converted} _______________\n")
 
@@ -467,7 +504,7 @@ print(f"($) Current price                       {new_asset_price}")
 print(f"(%) Percentage move                     {percentage_print}")
 
 price_difference =  round(new_asset_price, 2) - round(assigned_buyPrice, 2)
-print(f"($) Price difference since bought       {format(price_difference, '.2f')}\n")
+print(f"($) Price difference since bought       {format(price_difference, '.2f')}")
 
 underscore_counter = 0
 for i in range(len(player_investment_converted)):
@@ -475,6 +512,11 @@ for i in range(len(player_investment_converted)):
 
 underscores = "_" * (underscore_counter + 2)
 print(f"_______________{underscores}_______________")
+
+
+########## UPDATES STOCK PRICE ##########
+
+stocks_dict[player_investment_converted] = new_asset_price
 
 
 ######### UPDATES PLAYER VALUES ##########
@@ -485,8 +527,8 @@ pf_positions_asset = player_investment_converted
 pf_postions_shares = bought_shares
 
 # prices and values
-pf_price_current = new_asset_price
-pf_price_current_total_value = new_asset_price * pf_postions_shares
+pf_price_current = stocks_dict[player_investment_converted]
+pf_price_current_total_value = pf_price_current * pf_postions_shares
 pf_price_when_bought = assigned_buyPrice
 pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
 
@@ -577,6 +619,10 @@ display_player_portfolio()
 empty_line()
 continue_or_quit()
 
-if buy_sell_hold_Choice.lower() == "sell":
+start_new_window
+
+####################
+
+
 
 time.sleep(100)
