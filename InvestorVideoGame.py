@@ -44,7 +44,11 @@ def display_rules():
     print("|    decision-making and risk-taking of financial markets.                                                           |")
     print("|                                                                                                                    |")
     print("|    You will start off with a balance of $100,000 to invest and grow your money through your chosen asset(s).       |")
-    print("|    Your goal is to win the challenge by growing your money into $1,000,000.                                        |")
+    print("|    Your goal is to win the challenge by growing your money to $250,000.                                            |")
+    print("|                                                                                                                    |")
+    print("|                                                                                                                    |")
+    print("|    *NOTE: $250,000 in your cash balance, NOT in your portfolio value (you MUST SELL to WIN the game).*             |")
+    print("|                                                                                                                    |")
     print("|                                                                                                                    |")
     print("|    A fully randomised set of economic events will be presented to you, and you will be given the option to         |")
     print("|    buy, hold, or sell.                                                                                             |")
@@ -122,14 +126,14 @@ def display_stocks():
     print(f"f-------------------------  INVESTMENT OPTIONS  ------------------------+")
     print(f"|                                                                       |")
     print(f"+--- Ticker ----- Company ---------------------------------- Price -----+")
-    print(f"|    AAPL         Apple, Inc.                                ${stockPrice_apple}{investment_options_space_counter(stockPrice_apple)}|")
-    print(f"|    MSFT         Microsoft Corp.                            ${stockPrice_microsoft}{investment_options_space_counter(stockPrice_microsoft)}|")
-    print(f"|    GOOGL        Alphabet, Inc. (Google)                    ${stockPrice_alphabet}{investment_options_space_counter(stockPrice_alphabet)}|")
-    print(f"|    AMZ          Amazon.com, Inc.                           ${stockPrice_amazon}{investment_options_space_counter(stockPrice_amazon)}|")
-    print(f"|    TSLA         Tesla, Inc.                                ${stockPrice_tesla}{investment_options_space_counter(stockPrice_tesla)}|")
-    print(f"|    BRK-B        Berkshire Hathaway, Inc.                   ${stockPrice_berkshire}{investment_options_space_counter(stockPrice_berkshire)}|")
-    print(f"|    META         Meta Platforms, Inc. (FKA Facebook)        ${stockPrice_meta}{investment_options_space_counter(stockPrice_meta)}|")
-    print(f"|    NFLX         Netflix, Inc.                              ${stockPrice_netflix}{investment_options_space_counter(stockPrice_netflix)}|")
+    print(f"|    AAPL         Apple, Inc.                                ${format(stockPrice_apple, '.2f')}{investment_options_space_counter(format(stockPrice_apple, '.2f'))}|")
+    print(f"|    MSFT         Microsoft Corp.                            ${format(stockPrice_microsoft, '.2f')}{investment_options_space_counter(format(stockPrice_microsoft, '.2f'))}|")
+    print(f"|    GOOGL        Alphabet, Inc. (Google)                    ${format(stockPrice_alphabet, '.2f')}{investment_options_space_counter(format(stockPrice_alphabet, '.2f'))}|")
+    print(f"|    AMZ          Amazon.com, Inc.                           ${format(stockPrice_amazon, '.2f')}{investment_options_space_counter(format(stockPrice_amazon, '.2f'))}|")
+    print(f"|    TSLA         Tesla, Inc.                                ${format(stockPrice_tesla, '.2f')}{investment_options_space_counter(format(stockPrice_tesla, '.2f'))}|")
+    print(f"|    BRK-B        Berkshire Hathaway, Inc.                   ${format(stockPrice_berkshire, '.2f')}{investment_options_space_counter(format(stockPrice_berkshire, '.2f'))}|")
+    print(f"|    META         Meta Platforms, Inc. (FKA Facebook)        ${format(stockPrice_meta, '.2f')}{investment_options_space_counter(format(stockPrice_meta, '.2f'))}|")
+    print(f"|    NFLX         Netflix, Inc.                              ${format(stockPrice_netflix, '.2f')}{investment_options_space_counter(format(stockPrice_netflix, '.2f'))}|")
     print(f"|                                                                       |")  
     print(f"+-----------------------------------------------------------------------+")
 
@@ -237,7 +241,7 @@ def display_player_portfolio():
     print(f"   Open positions                             {int(pf_positions_open)}\n")
 
     print(f"   Invested asset                             {pf_positions_asset}")
-    print(f"   Number of shares                           {int(pf_postions_shares)}\n")
+    print(f"   Number of shares                           {format(pf_postions_shares, '.2f')}\n")
     
     print(f"   ($) Current price                          {format(pf_price_current, '.2f')}")
     print(f"   ($) Current total value                    {format(pf_price_current_total_value, '.2f')}")
@@ -445,7 +449,7 @@ continue_or_quit()
 
 ############ LOOP FROM HERE
 
-while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
+while pf_balance_cash < 250000 and pf_balance_cash >= 0:
     print("hi",pf_balance_cash)
     if pf_positions_open == 0:
         print("if")
@@ -481,6 +485,35 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
             
             elif player_investment.lower() == "quit":
                 print("Come back next time when you are ready, see you soon.")
+        
+
+        if float(pf_balance_cash) < float(stocks_dict.get(player_investment_converted)):
+            print("Sorry you do not have enough funds to purchase the stock.\n")
+            continue_or_quit()
+            continue
+
+
+        affordable_counter = 0
+        for share_price in stocks_dict:
+            if float(pf_balance_cash) >= float(stocks_dict[share_price]):
+                affordable_counter = affordable_counter + 1
+            else:
+                pass
+        
+        if affordable_counter == 0:
+            print("Sorry you have insufficient funds to buy any shares of any listed stock.")
+            print("""
+ /$$                                        
+| $$                                        
+| $$  /$$$$$$   /$$$$$$$  /$$$$$$   /$$$$$$ 
+| $$ /$$__  $$ /$$_____/ /$$__  $$ /$$__  $$
+| $$| $$  \ $$|  $$$$$$ | $$$$$$$$| $$  \__/
+| $$| $$  | $$ \____  $$| $$_____/| $$      
+| $$|  $$$$$$/ /$$$$$$$/|  $$$$$$$| $$      
+|__/ \______/ |_______/  \_______/|__/      
+""")
+            quit()
+
 
         # PRINT ONCE INVESTMENT INPUT IS VALID
         print("> Processing transaction...")
@@ -518,7 +551,7 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
         pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
 
         # balances
-        pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+        pf_balance_cash = pf_balance_cash - pf_price_total_acquisition_cost #starting cash
         pf_balance_investments = pf_price_current_total_value # value of investments
         pf_balance_investments_pnl = pf_price_total_acquisition_cost -  pf_price_current_total_value # + or - of investments
 
@@ -548,7 +581,7 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
         pf_price_total_acquisition_cost = pf_price_when_bought * pf_postions_shares
 
         # balances
-        pf_balance_cash = 100000 - pf_price_total_acquisition_cost #starting cash
+        #pf_balance_cash = pf_balance_cash - pf_price_total_acquisition_cost #starting cash
         pf_balance_investments = pf_price_current_total_value # value of investments
         pf_balance_investments_pnl = pf_price_current_total_value - pf_price_total_acquisition_cost# + or - of investments
 
@@ -559,13 +592,13 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
         empty_line()
         
         buy_sell_hold = input("""
-        Considering recent news, would you like to:
-        (a) Sell your shares, exiting your position
-        (b) Hold your position, take no action
+Considering recent news, would you like to:
+(a) Sell your shares, exiting your position
+(b) Hold your position, take no action
 
-        *You may not buy more shares as you have a cash balance of $0.00
+*You may not buy more shares as you have a cash balance of $0.00
 
-        Please input your choice: """)
+Please input your choice: """)
 
         if buy_sell_hold.lower() == "a" or buy_sell_hold.lower() == "sell":
             buy_sell_hold_Choice = "sell"
@@ -588,8 +621,8 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
 
         elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
             buy_sell_hold_Choice = "hold"
-            print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
-            news_generator(pf_positions_asset)                
+            #print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
+            #news_generator(pf_positions_asset)                
 
         else:
             if buy_sell_hold.lower() != "quit":
@@ -615,12 +648,12 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
                         pf_price_current_total_value = 0
                         pf_price_when_bought = 0
                         pf_price_total_acquisition_cost = 0
-                        #break
+                        break
 
                     elif buy_sell_hold.lower() == "b" or buy_sell_hold.lower() == "hold":
                         buy_sell_hold_Choice = "hold"
-                        news_generator(pf_positions_asset)                    
-                        #break
+                        #news_generator(pf_positions_asset)
+                        break
 
                     elif buy_sell_hold.lower() == "quit":
                         print("See you soon.")
@@ -630,19 +663,41 @@ while pf_balance_cash < 1000000 and pf_balance_cash >= 0:
                 print("See you soon.")
                 quit()
 
+        #if buy_sell_hold_Choice.lower() == "hold":
+        #    print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
+        #    news_generator(pf_positions_asset)     
+            
+        print(f"> So, {username}, you have chosen to {buy_sell_hold_Choice}.")
 
-
-        empty_line()
+        #empty_line()
         #display_player_portfolio()
 
         empty_line()
-        #continue_or_quit()
+        continue_or_quit()
+
+        if buy_sell_hold_Choice.lower() == "hold":
+            news_generator(pf_positions_asset)     
+
 
         #start_new_window
 
     ####################
-    if pf_balance_cash >= 1000000:
-        print(f"> So, {username}, you are the winner.")
+    if pf_balance_cash >= 250000:
+        print(f"\n Congratulations, {username}, you are the winner.\n")
+        print("""
+                                                   /$$                 /$$                                     /$$           /$$      
+                                                  | $$                |__/                                    |__/          | $$      
+  /$$$$$$  /$$$$$$$  /$$  /$$$$$$  /$$   /$$      | $$$$$$$   /$$$$$$  /$$ /$$$$$$$   /$$$$$$         /$$$$$$  /$$  /$$$$$$$| $$$$$$$ 
+ /$$__  $$| $$__  $$|__/ /$$__  $$| $$  | $$      | $$__  $$ /$$__  $$| $$| $$__  $$ /$$__  $$       /$$__  $$| $$ /$$_____/| $$__  $$
+| $$$$$$$$| $$  \ $$ /$$| $$  \ $$| $$  | $$      | $$  \ $$| $$$$$$$$| $$| $$  \ $$| $$  \ $$      | $$  \__/| $$| $$      | $$  \ $$
+| $$_____/| $$  | $$| $$| $$  | $$| $$  | $$      | $$  | $$| $$_____/| $$| $$  | $$| $$  | $$      | $$      | $$| $$      | $$  | $$
+|  $$$$$$$| $$  | $$| $$|  $$$$$$/|  $$$$$$$      | $$$$$$$/|  $$$$$$$| $$| $$  | $$|  $$$$$$$      | $$      | $$|  $$$$$$$| $$  | $$
+ \_______/|__/  |__/| $$ \______/  \____  $$      |_______/  \_______/|__/|__/  |__/ \____  $$      |__/      |__/ \_______/|__/  |__/
+               /$$  | $$           /$$  | $$                                         /$$  \ $$                                        
+              |  $$$$$$/          |  $$$$$$/                                        |  $$$$$$/                                        
+               \______/            \______/                                          \______/                                         
+""")
+        quit()
         break
 
 print(f"> So, {username}, you are here.")
