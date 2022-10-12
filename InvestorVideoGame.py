@@ -60,47 +60,84 @@ def continue_or_quit():
 
 
 # DISPLAY INVESTMENT OPTIONS
-def display_ivestment_options():
-    print("+--------  INVESTMENT OPTIONS  --------+")
-    print("|                                      |")
-    print("+--- Number ----- Class ---------------+")
-    print("|    1            Stocks               |")
-    print("|    2            Real estate          |")
-    print("|    3            Lottery tickets      |")
-    print("|    4            Cryptocurrencies     |")
-    print("|                                      |")
-    print("+--------------------------------------+")
+def display_stocks():
+    print("+-------------------------  INVESTMENT OPTIONS  ------------------------+")
+    print("|                                                                       |")
+    print("+--- Ticker ----- Company ---------------------------------- Price -----+")
+    print("|    AAPL         Apple, Inc.                                $168.49    |")
+    print("|    MSFT         Microsoft Corp.                            $287.02    |")
+    print("|    GOOGL        Alphabet, Inc. (Google)                    $118.84    |")
+    print("|    AMZ          Amazon.com, Inc.                           $140.64    |")
+    print("|    TSLA         Tesla, Inc.                                $859.89    |")
+    print("|    BKR-B        Berkshire Hathaway, Inc.                   $296.47    |")
+    print("|    META         Meta Platforms, Inc. (FKA Facebook)        $177.49    |")
+    print("|    NFLX         Netflix, Inc.                              $242.70    |")
+    print("|                                                                       |")
+    print("+-----------------------------------------------------------------------+")
 
-
-# PLAYER INVESTMENT OPTION - INITIALISE FOR PORTFOLIO
-player_assetClass = " "
-player_assetClass_lower = player_assetClass.lower()
 
 # PLAYER INVESTMENT OPTION - ASSIGNING TO ASSET CLASS
-def assign_player_assetClass():
-    if player_assetClass == "1":
-        player_assetClass == "Stocks"
+def assign_player_investment(investment_choice):
 
-    elif player_assetClass_lower == "stocks" or "equities" or "stock market":
-        player_assetClass == "Stocks"
+    investment_choice_lower = investment_choice.lower()
 
-    elif player_assetClass == "2":
-        player_assetClass == "Real estate"
-    
-    elif player_assetClass_lower == "real estate":
-        player_assetClass == "Real estate"
 
-    elif player_assetClass == "3":
-        player_assetClass == "Lottery tickets"
+    if investment_choice_lower == " ":
+        investment_choice = "N/A"
+        investment_choice_profile = "N/A"
     
-    elif player_assetClass_lower == "lottery tickets" or "lottery":
-        player_assetClass == "Lottery tickets"
+
+    elif investment_choice_lower == "aapl" or investment_choice_lower == "apple, inc." or investment_choice_lower == "apple":
+        print("appppple")
+        investment_choice = "Apple, Inc. (AAPL)"
+        investment_choice_profile = "Apple, Inc. engages in the design, manufacture, and sale of smartphones, personal computers, tablets, wearables and accessories, and other varieties of related services."
+        investment_price = float("168.49")
+
+
+    elif investment_choice_lower == "msft" or investment_choice_lower == "microsoft corp." or investment_choice_lower == "microsoft":
+        print("microooosoft")
+        investment_choice = "Microsoft Corp. (MSFT)"
+        investment_choice_profile = "Microsoft Corp. engages in the development and support of software, services, devices, and solutions."
+        investment_price = float("287.02")
+
+
+    elif investment_choice_lower == "googl" or investment_choice_lower == "alphabet" or investment_choice_lower == "alphabet, inc." or investment_choice_lower == "google":
+        investment_choice = "Alphabet, Inc. (GOOGL)"
+        investment_choice_profile = "Alphabet, Inc. is a holding company, which engages in the business of acquisition and operation of different companies, such as its main internet products: ads, Android, Chrome, hardware, Google Cloud, Google Maps, Google Play, Search, and YouTube."
+        investment_price = float("118.84")
+
     
-    elif player_assetClass == "4":
-        player_assetClass == "Cryptocurrencies"
+    elif investment_choice_lower == "amz" or investment_choice_lower == "amazon.com" or investment_choice_lower == "amazon.com, inc." or investment_choice_lower == "amazon":
+        investment_choice = "Amazon.com, Inc. (AMZ)"
+        investment_choice_profile = "Amazon.com, Inc. is a multinational technology company, which engages in the provision of online retail shopping services."
+        investment_price = float("140.64")
+
+
+    elif investment_choice_lower == "tsla" or investment_choice_lower == "tesla, inc." or investment_choice_lower == "tesla":
+        investment_choice = "Tesla, Inc. (TSLA)"
+        investment_choice_profile = "Tesla, Inc. engages in the design, development, manufacture, and sale of fully electric vehicles and energy generation and storage systems."
+        investment_price = float("859.89")
     
-    elif player_assetClass_lower == "cryptocurrencies" or "crypto":
-        player_assetClass == "Cryptocurrencies"
+
+    elif investment_choice_lower == "bkr-b" or investment_choice_lower == "berkshire hathaway, inc." or investment_choice_lower == "berkshire hathaway":
+        investment_choice = "Berkshire Hathaway (BKR-B)"
+        investment_choice_profile = "Berkshire Hathaway, Inc. engages in the provision of property and casualty insurance and reinsurance, utilities and energy, freight rail transportation, finance, manufacturing, and retailing services."
+        investment_price = float("296.47")
+    
+
+    elif investment_choice_lower == "meta" or investment_choice_lower == "meta platforms, inc." or investment_choice_lower == "meta platforms" or investment_choice_lower == "meta":
+        investment_choice = "Meta Platforms, Inc. (META)"
+        investment_choice_profile = "Meta Platforms, Inc., engages in the development of social media applications. It builds technology that helps people connect, find communities, and grow businesses."
+        investment_price = float("177.49")
+    
+
+    elif investment_choice_lower == "nflx" or investment_choice_lower == "netflix, inc." or investment_choice_lower == "netflix":
+        investment_choice = "Netflix, Inc. (NFLX)"
+        investment_choice_profile = "Netflix, Inc. operates as a streaming entertainment service company. The firm provides subscription service streaming movies and television episodes over the internet."
+        investment_price = float("242.70")
+
+
+    return investment_choice, investment_choice_profile, investment_price
 
 
 # DISPLAY PLAYER PORTFOLIO
@@ -108,8 +145,7 @@ def display_player_portfolio():
     print(f"______________________________  PORTFOLIO  ______________________________\n")
     print(f"   Open positions                             1 \n")
 
-    print(f"   Invested asset class                       {player_assetClass}")
-    print(f"   INvested asset                   ")
+    print(f"   Invested asset                   ")
     print(f"   Assets in holding \n")
     
     print(f"   ($) Current price")
@@ -123,6 +159,12 @@ def display_player_portfolio():
 
 
 ########## INTRO ##########
+
+# BALANCES
+balance_cash = float("100000")
+balance_portfolio = float("0")
+balance_portfolio_pnl = float("0")
+
 
 clear_terminal()
 
@@ -174,13 +216,27 @@ continue_or_quit()
 
 clear_terminal()
 
-display_ivestment_options()
+display_stocks()
+
+
+# INPUT INVESTMENT
+empty_line()
+player_investment = input("Please input the your desired stock to invest in: ")
+
+# RETURN THE STOCK: NAME & TICKER, DESCRIPTION, PRICE from the function
+assigned, assigned_desc, assigned_buyPrice = assign_player_investment(player_investment)
+
+# CALCULATIONS FOR THE STOCK PRICE
+bought_shares = round(float(balance_cash / assigned_buyPrice),0)
+
 
 empty_line()
-player_assetClass = input("Please input the your desired asset class to invest in: ")
-print(f"> You have chosen to invest in {player_assetClass}.")
-print("Here are the available assets in this class:")
+
+print(f"You have bought {bought_shares} shares of {assigned} at ${assigned_buyPrice}.")
+print(assigned_desc)
+
+time.sleep(10)
 
 empty_line()
 
-display_player_portfolio()
+print(f"")
