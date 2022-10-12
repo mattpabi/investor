@@ -230,7 +230,7 @@ pf_price_when_bought = 0
 pf_price_total_acquisition_cost = 0
 
 # balances
-pf_balance_cash = 100000 #starting cash
+pf_balance_cash = 250000 #starting cash
 pf_balance_investments = 0 #starting value of investments
 pf_balance_investments_pnl = 0 #starting + or - of investments
 
@@ -487,12 +487,6 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0:
                 print("Come back next time when you are ready, see you soon.")
         
 
-        if float(pf_balance_cash) < float(stocks_dict.get(player_investment_converted)):
-            print("Sorry you do not have enough funds to purchase the stock.\n")
-            continue_or_quit()
-            continue
-
-
         affordable_counter = 0
         for share_price in stocks_dict:
             if float(pf_balance_cash) >= float(stocks_dict[share_price]):
@@ -513,6 +507,14 @@ while pf_balance_cash < 250000 and pf_balance_cash >= 0:
 |__/ \______/ |_______/  \_______/|__/      
 """)
             quit()
+
+
+        if float(pf_balance_cash) < float(stocks_dict.get(player_investment_converted)):
+            print("Sorry you do not have enough funds to purchase the stock.\n")
+            continue_or_quit()
+            continue
+
+
 
 
         # PRINT ONCE INVESTMENT INPUT IS VALID
